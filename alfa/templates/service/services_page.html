@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">Услуги</h1>
+	{% with url_name='new_service_url' item='услугу'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+	<div class="row">
+		{% for service in services %}
+			<div class="col-6 my-4 border-0">
+				<a class="text-mgrey h2" href="{% url 'service_url' service.id %}">{{service.name}}
+					<div class="row">
+						<div class="col-6">
+							{% url 'remove_service_url' service.id  as remove_url %}
+							{% url 'edit_service_url' service.id  as edit_url %}
+							{% include 'admin/remove_edit_buttons.html' %}
+						</div>
+					</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

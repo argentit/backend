@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="text-mgrey">Новости</h1>
+	{% with url_name='new_news_url' item='новость'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+	<div class="text-mgrey">
+	{% for article in all %}
+		<div class="">
+			<h2>{{article.title}}</h2>
+			<small class="h6">{{article.date}}</small>
+
+			<div class="p mt-2">
+				{{article.content|safe}}
+			</div>
+			{% url 'remove_news_url' article.id  as remove_url %}
+			{% url 'edit_news_url' article.id  as edit_url %}
+			{% include 'admin/remove_edit_buttons.html' %}
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}

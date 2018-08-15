@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1>Добавить вакансию</h1>
+	{% if error %}
+		<div class="alert alert-danger rounded-0 container">{{error_message}}</div>
+	{% endif %}
+	<form method="POST" action="{{request.path}}">{% csrf_token %}
+		<div class="form-group">
+			<label for="name">Название:</label>
+			<input type="text" name="name" class="form-control rounded-0" required {% if job %}value="{{job.name}}"{% endif %}>
+		</div>
+		<div class="form-group">
+			<label for="description">Описание:</label>
+			<textarea name="description" rows="5" class="form-control rounded-0" required>{% if job %}{{job.description}}{% endif %}</textarea>
+		</div>
+		<div class="row">
+			<div class="col-2">
+				<input type="submit" class="btn btn-success rounded-0 container-fluid" value="Сохранить">
+			</div>
+			<div class="col-2">
+				<a href="{% url 'jobs_url' %}">
+					<div class="btn btn-danger rounded-0 container-fluid">Отменить</div>
+				</a>
+			</div>
+		</div>
+	</form>
+{% endblock %}

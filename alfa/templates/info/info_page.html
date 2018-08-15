@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">Правовая информация</h1>
+	{% with url_name='new_info_url' item='документ'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+	<ul class="list-group list-group-flush">
+		{% for document in documents %}
+			<li class="list-group-item border border-0 p-0">
+				<a href="{{document.file.url}}" target="_blank" class="text-mgrey">{{document.name}}</a>
+				{% url 'remove_info_url' document.id  as remove_url %}
+				{% url 'edit_info_url' document.id  as edit_url %}
+				{% include 'admin/remove_edit_buttons.html' %}
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

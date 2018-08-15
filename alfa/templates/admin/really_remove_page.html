@@ -1,0 +1,25 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<p>{{text}}</p>
+		<div class="row">
+			<div class="col-2 m-x-3">
+				<form class="" action="{{request.path}}" method="post">
+					{% csrf_token %}
+					<button type="submit" class="btn btn-danger container-fluid rounded-0">Удалить</button>
+				</form>
+			</div>
+			<div class="col-2">
+				<a href="{{back_url}}">
+					<button type="submit" class="btn btn-success container-fluid rounded-0">Назад</button>
+				</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

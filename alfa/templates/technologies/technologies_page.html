@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="h1_class">Технологии</h1>
+	{% with url_name='new_technology_url' item='технологию'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+	<div class="row">
+		{% for tech in technologies %}
+			<div class="col-xl-3 align-self-end">
+				<div class="m-3">
+					<div class="row">
+						<a href="{% url 'technology_url' tech.id %}"><img class="rounded-0" style="width:100%" src="{{tech.img.url}}"></a>
+					</div>
+					<div class="row mt-2">
+						<a href="{% url 'technology_url' tech.id %}" class="h3 text-mgrey no-underline" >{{tech.name}}</a>
+					</div>
+
+				</div>
+				{% url 'remove_technology_url' tech.id  as remove_url %}
+				{% url 'edit_technology_url' tech.id  as edit_url %}
+				{% include 'admin/remove_edit_buttons.html' %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

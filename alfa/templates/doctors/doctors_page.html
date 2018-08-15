@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">Врачи Аргентита</h1>
+	{% with url_name='new_doctor_url' item='доктора'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+	<div class="row">
+		{% for doctor in doctors %}
+			<div class="border border-0 col-xl-6 my-2">
+				<div class="row">
+					<div class="col-4">
+						<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{{doctor.photo.url}}" alt="" style="width:100%"></a>
+					</div>
+					<div class="col-8">
+						<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey no-underline"><h4 class="card-titl">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h4></a>
+						<ul class="list-group list-group-flush">
+							{% for item in doctor.type.all %}
+								<li class="list-group-item text-mgrey">
+									{{item.name}}
+								</li>
+							{% endfor %}
+						</ul>
+						{% url 'remove_doctor_url' doctor.id  as remove_url %}
+						{% url 'edit_doctor_url' doctor.id  as edit_url %}
+						{% include 'admin/remove_edit_buttons.html' %}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

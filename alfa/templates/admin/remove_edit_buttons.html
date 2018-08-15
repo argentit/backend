@@ -1,0 +1,14 @@
+{% if request.user.is_authenticated %}
+	<div class="row">
+		<div class="col">
+			<a href="{{edit_url}}" class="no-underline">
+				<button class="btn btn-success btn-block my-3 rounded-0">Изменить</button>
+			</a>
+		</div>
+		<div class="col">
+			<a href="{{remove_url }}" class="no-underline">
+				<button class="btn btn-danger btn-block my-3 rounded-0">Удалить</button>
+			</a>
+		</div>
+	</div>
+{% endif %}

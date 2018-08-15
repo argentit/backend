@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">Результаты работы наших врачей</h1>
+	{% with url_name='new_result_url' item=''%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+	{% for doctor in doctors %}
+		{% if doctor.results.count != 0 %}
+			<div class="row mt-4">
+				<div class="col-3">
+					<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{{doctor.img.url}}" alt="" style="width:100%"></a>
+				<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey no-underline"><p class="h3">{{doctor}}</p></a>
+				</div>
+				<div class="col-3">
+				</div>
+				<div class="col">
+					{% for item in doctor.results.all %}
+						<div class="row">
+							<div class="col">
+								<img src="{{item.img_before.url}}" style="width:100%"/>
+							</div>
+							<div class="col">
+								<img src="{{item.img_after.url}}" style="width:100%"/>
+							</div>
+						</div>
+						<div class="mt-2">
+							<p>{{item.text}}</p>
+						</div>
+						{% url 'remove_result_url' item.id  as remove_url %}
+						{% url 'edit_result_url' item.id  as edit_url %}
+						{% include 'admin/remove_edit_buttons.html' %}
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endblock %}

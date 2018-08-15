@@ -1,0 +1,10 @@
+alfa/.DS_Store argentit/.DS_Store media/.DS_Store static/.DS_Store
+.DS_Store
+media
+static
+argentit/local.py
+alfa/__init__.py argentit/__init__.py
+alfa/__pycache__ argentit/__pycache__
+alfa/__pycache__/__init__.cpython-36.pyc alfa/__pycache__/admin.cpython-36.pyc alfa/__pycache__/admin_urls.cpython-36.pyc alfa/__pycache__/admin_views.cpython-36.pyc alfa/__pycache__/apps.cpython-36.pyc alfa/__pycache__/charity_views.cpython-36.pyc alfa/__pycache__/decorators.cpython-36.pyc alfa/__pycache__/forms.cpython-36.pyc alfa/__pycache__/models.cpython-36.pyc alfa/__pycache__/urls.cpython-36.pyc alfa/__pycache__/views.cpython-36.pyc argentit/__pycache__/__init__.cpython-36.pyc argentit/__pycache__/local.cpython-36.pyc argentit/__pycache__/settings.cpython-36.pyc argentit/__pycache__/urls.cpython-36.pyc argentit/__pycache__/wsgi.cpython-36.pyc
+__pycache__
+__init__.py

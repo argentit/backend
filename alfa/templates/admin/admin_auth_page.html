@@ -1,0 +1,41 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h1>Авторизация</h1>
+		<div class="row">
+			<div class="col-6">
+				{% if error %}
+					<div class="alert alert-danger rounded-0">
+						{{error_message}}
+					</div>
+				{% endif %}
+				
+				{% if request.user.is_authenticated %}
+					<div class="alert alert-info rounded-0">
+						Вы уже авторизированны.
+					</div>
+					<a href="{% url 'logout_url' %}"><button type="submit" class="btn btn-dred rounded-0">Выйти</button></a>
+				{% else %}
+					<form method="POST" action="{{request.path}}" class="">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="login" class="">Логин:</label>
+							<input type="text" name="login" class="form-control rounded-0"/>
+						</div>
+						<div class="form-group">
+							<label for="password" class="">Пароль:</label>
+							<input type="text" name="password" class="form-control rounded-0"/>
+						</div>
+						<button type="submit" class="btn btn-dred rounded-0">Войти</button>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

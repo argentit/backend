@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+	<div class="container">
+		<h1 class="{{h1_class}}">Добавить результат</h1>
+		{% if error %}
+		<div class="alert alert-danger rounded-0">{{error_message}}</div>
+		{% endif %}
+
+		<form method="POST" action="{{request.path}}" class="p-0" enctype="multipart/form-data">
+			{% for field in form %}
+	   			<div class="form-group row ">
+	   				<label class="col-2 ml-0" for="{{ field.name }}">{{ field.label }}</label>
+	   				{{ field }}
+	   			</div>
+   			{% endfor %}
+			{% csrf_token %}
+			<div class="row ">
+				<div class="col-2">
+					<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">
+				</div>
+				<div class="col-2">
+					<a href="{% url 'results_url' %}">
+						<div class="btn btn-danger container-fluid rounded-0">Отменить</div>
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}

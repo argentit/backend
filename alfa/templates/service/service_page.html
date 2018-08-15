@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">{{service.name}}</h1>
+	<p>{{service.description}}</p>
+	<h2>Стоимость: {{service.price}}</h2>
+	{% if service.doctors.count != 0 %}
+		{% with service.doctors.all as doctors %}
+			{% include "doctors_list.html" %}
+		{% endwith %}
+	{% endif %}
+
+{% endblock %}

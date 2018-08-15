@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="text-mgrey">{{technology.name}}</h1>
+	<div class="row">
+		<div class="col">
+			<img src="{{technology.img.url}}" style="width:500px" class="float-left mr-2"/>
+			<p class="text-mgrey h4">
+				{{technology.text}}
+			</p>
+		</div>
+	</div>
+	<br />
+	{% if technology.doctors.count != 0 %}
+		<h2>Врачи, которые работают с этой технологией:</h2>
+		{% with technology.doctors as doctors %}
+			{% include 'doctors_list.html' %}
+		{% endwith %}
+	{% endif %}
+{% endblock %}

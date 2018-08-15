@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Стоматология Аргентит</title>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-4">
+			<img class="w-100" src="{{doctor.photo.url}}">
+		</div>
+		<div class="col ml-3">
+			<div class="row">
+				<h1 class="h1">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h1>
+			</div>
+			<div class="row">
+				<ul class="list-group list-group-flush col-6">
+					{% for type in doctor.type.all %}
+						<li class="list-group-item pl-0">
+							{{type.name}}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="row">
+				Опыт работы: {{years}}
+			</div>
+		</div>
+	</div>
+	<br>
+	{% with all=doctor.practice.all %}
+		{% if all %}
+			<div class="row h3">
+				<div class="col">
+					Основные направления медицинской деятельности:
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+				{% for item in all %}
+					<li class="list-group-item list-group-flush">
+						<div class="row">
+							<div class="col">
+								{{item.name}}
+							</div>
+							<div class="col-4">
+								{% url 'remove_practice_url' doctor_id=doctor.id id=item.id  as remove_url %}
+								{% url 'edit_practice_url' doctor_id=doctor.id id=item.id as edit_url %}
+								{% include 'admin/remove_edit_buttons.html' %}
+							</div>
+
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+
+		{% endif %}
+	{% endwith %}
+	{% if request.user.is_authenticated %}
+		<a href="{% url 'new_practice_url' doctor.id %}">
+			<div class="btn btn-primary container-fluid rounded-0 mb-3">
+				Добавить направление
+			</div>
+		</a>
+	{% endif %}
+	{% with all=doctor.education.all %}
+		{% if all %}
+			<div class="row h3">
+				<div class="col">
+					Базовое образование:
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+				{% for item in all %}
+					<li class="list-group-item list-group-flush">
+						<div class="row">
+							<div class="col">
+								{{item.name}}
+							</div>
+							<div class="col-4">
+								{% url 'remove_education_url' doctor_id=doctor.id id=item.id  as remove_url %}
+								{% url 'edit_education_url' doctor_id=doctor.id id=item.id as edit_url %}
+								{% include 'admin/remove_edit_buttons.html' %}
+							</div>
+						</div>
+
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %}
+	{% if request.user.is_authenticated %}
+		<a href="{% url 'new_education_url' doctor.id %}">
+			<div class="btn btn-primary container-fluid rounded-0 mb-3">
+				Добавить образование
+			</div>
+		</a>
+	{% endif %}
+	{% with all=doctor.certificates.all %}
+		{% if all %}
+			<div class="row h3">
+				<div class="col">
+					Имеет различные сертификаты курсов повышения квалификации:
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+				{% for item in all %}
+					<li class="list-group-item list-group-flush">
+						<div class="row">
+							<div class="col">
+								{{item.name}}
+							</div>
+							<div class="col-4">
+								{% url 'remove_certificate_url' doctor_id=doctor.id id=item.id  as remove_url %}
+								{% url 'edit_certificate_url' doctor_id=doctor.id id=item.id as edit_url %}
+								{% include 'admin/remove_edit_buttons.html' %}
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %}
+	{% if request.user.is_authenticated %}
+		<a href="{% url 'new_certificate_url' doctor.id %}">
+			<div class="btn btn-primary container-fluid rounded-0 mb-3">
+				Добавить сертификат
+			</div>
+		</a>
+	{% endif %}
+	{% if doctor.slug is 'birukova' %}
+	<div class="row h3">
+		<div class="col">
+			Имеет два патента:
+		</div>
+	</div>
+	<ul class="list-group list-group-flush col-4">
+			<li class="list-group-item list-group-flush">
+				Способ лечения гипертрофическорго гингивита
+			</li>
+			<li class="list-group-item list-group-flush">
+				Способ лечения эрозии зубов
+			</li>
+	</ul>
+	{% endif %}
+{% endblock %}

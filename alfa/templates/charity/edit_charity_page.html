@@ -1,0 +1,31 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+	<h1 class="container pl-0">{{action}} благотворительность</h1>
+	{% if error %}
+	<div class="alert alert-danger rounded-0 container">{{error_message}}</div>
+	{% endif %}
+	<form method="POST" action="{% url 'new_charity_url' %}" class="p-0 container" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="text" class="">Текст:</label>
+			<textarea type="text" name="text" class="form-control rounded-0" rows="5">{% if text %}{{text}}{% endif %}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="img" class="">Изображение:</label>
+			<input type="file" name="img" value="{{image}}" class=" rounded-0"/>
+		</div>
+		<input type="hidden" name="object_id" value="{{object_id}}">
+		<div class="row">
+			<div class="col-2">
+				<input type="submit" value="Сохранить" class="btn btn-dred rounded-0 container-fluid">
+			</div>
+			<div class="col-2">
+				<a href="{% url 'charity_url' %}">
+					<div class="btn btn-success container-fluid rounded-0">Назад</div>
+				</a>
+			</div>
+		</div>
+
+	</form>
+{% endblock %}
