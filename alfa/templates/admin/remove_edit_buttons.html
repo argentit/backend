@@ -1,14 +1,33 @@
 {% if request.user.is_authenticated %}
 	<div class="row">
-		<div class="col">
-			<a href="{{edit_url}}" class="no-underline">
-				<button class="btn btn-success btn-block my-3 rounded-0">Изменить</button>
-			</a>
-		</div>
-		<div class="col">
-			<a href="{{remove_url }}" class="no-underline">
-				<button class="btn btn-danger btn-block my-3 rounded-0">Удалить</button>
-			</a>
-		</div>
+		{% if edit_url %}
+			<div class="col">
+				<a href="{{edit_url}}" class="no-underline">
+					<button class="btn btn-success btn-block my-3 rounded-0">Изменить</button>
+				</a>
+			</div>
+		{% endif %}
+		{% if remove_url %}
+			<div class="col">
+				<a href="{{remove_url }}" class="no-underline">
+					<button class="btn btn-danger btn-block my-3 rounded-0">Удалить</button>
+				</a>
+			</div>
+		{% endif %}
+		{% if activate_url %}
+			<div class="col">
+				<a href="{{activate_url }}" class="no-underline">
+					{% if is_active %}
+						<button class="btn btn-info btn-block my-3 rounded-0">
+							Не показывать
+						</button>
+					{% else %}
+						<button class="btn btn-warning btn-block my-3 rounded-0">
+							Показывать
+						</button>
+					{% endif %}
+				</a>
+			</div>
+		{% endif %}
 	</div>
 {% endif %}

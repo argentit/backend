@@ -4,8 +4,7 @@ from django.conf import settings
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
-class Doctors_type(models.Model):
-	name = models.CharField(max_length = 50, default = '')
+
 
 class Practice(models.Model):
 	name = models.CharField(max_length = 500, default = '')
@@ -33,7 +32,6 @@ class Doctor(models.Model):
 	name = models.CharField(max_length = 20, default = '')
 	surname = models.CharField(max_length = 20, default = '')
 	patronymic = models.CharField(max_length = 20, default = '')
-	type = models.ManyToManyField(Doctors_type, default=None, related_name='doctors')
 	exp = models.DateField(auto_now = False, auto_now_add = False, default = '')
 	practice = models.ManyToManyField(Practice, related_name='doctors', default=None)
 	slug = models.SlugField(max_length = 20, default = '')
@@ -41,8 +39,15 @@ class Doctor(models.Model):
 	services = models.ManyToManyField(Service, related_name='doctors', default=None)
 	technologies = models.ManyToManyField(Technology, related_name='doctors', default=None)
 	is_active = models.BooleanField(default=False)
+	number = models.CharField(max_length=10, default='0')
 	def __str__(self):
 		return self.name + ' ' + self.surname + ' ' + self.patronymic
+	class Meta:
+		ordering = ['number']
+
+class Doctors_type(models.Model):
+	name = models.CharField(max_length = 100, default = '')
+	doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='types', default=None, null=True)
 
 class Skill(models.Model):
 	name = name = models.CharField(max_length = 1000, default = '')

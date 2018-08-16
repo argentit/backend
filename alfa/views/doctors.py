@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.decorators import *
-from alfa.models import  Doctor, Practice, Education, Certificate
-from alfa.forms import DoctorForm, TextForm
+from alfa.models import  Doctor, Practice, Education, Certificate, Doctors_type
+from alfa.forms import DoctorForm, TextForm, ImageForm
 from datetime import date
 
 def doctors_page(request):
@@ -57,11 +57,14 @@ def new_doctor_page(request):
 		form = DoctorForm(request.POST, request.FILES)
 		if form.is_valid():
 			doctor = Doctor()
+			doctor.number = str(doctor.id)
 			doctor.name = form.cleaned_data['name']
 			doctor.surname = form.cleaned_data['surname']
 			doctor.patronymic = form.cleaned_data['patronymic']
 			doctor.exp = form.cleaned_data['exp']
 			doctor.photo = form.cleaned_data['photo']
+			doctor.save()
+			doctor.number = str(doctor.id)
 			doctor.save()
 			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
 		else:
@@ -322,3 +325,118 @@ def new_certificate_page(request, doctor_id):
 	else:
 		context['form'] = TextForm()
 		return render(request, template_name, context)
+
+@has_premission()
+def activate_doctor_page(request, id):
+	try:
+		doctor = Doctor.objects.get(id=id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	if doctor.is_active:
+		doctor.is_active = False
+	else:
+		doctor.is_active = True
+	doctor.save()
+	return HttpResponseRedirect(reverse('doctors_url'))
+
+@has_premission()
+def remove_doctor_type_page(request, doctor_id, id):
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	try:
+		type = Doctors_type.objects.get(id=id)
+	except Doctors_type.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+	if type.doctor.id == doctor.id:
+		type.delete()
+	return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+
+@has_premission()
+def new_doctor_type_page(request, doctor_id):
+	context = {}
+	context['doctor_id'] = doctor_id
+	context['header'] = 'Добавить тип'
+	context['label'] = 'Тип'
+	template_name = 'doctors/new_text_form_page.html'
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	if request.method == 'POST':
+		form = TextForm(request.POST)
+		if form.is_valid():
+			type = Doctors_type()
+			type.doctor = doctor
+			type.name = form.cleaned_data['name']
+			type.save()
+			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+		else:
+			context['error'] = True
+			context['form'] = TextForm()
+			context['error_message'] = 'Неверно заполнена форма.'
+			return render(request, template_name, context)
+	else:
+		context['form'] = TextForm()
+		return render(request, template_name, context)
+
+@has_premission()
+def edit_image_doctor_page(request, doctor_id):
+	context = {}
+	context['doctor_id'] = doctor_id
+	context['header'] = 'Изменить изображение'
+	context['label'] = 'Изображение'
+	template_name = 'doctors/new_image_form_page.html'
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	if request.method == 'POST':
+		form = ImageForm(request.POST, request.FILES)
+		if form.is_valid():
+			doctor.photo = form.cleaned_data['image']
+			doctor.save()
+			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+		else:
+			context['error'] = True
+			context['form'] = ImageForm()
+			context['error_message'] = 'Неверно заполнена форма.'
+			return render(request, template_name, context)
+	else:
+		context['form'] = ImageForm()
+		return render(request, template_name, context)
+
+@has_premission()
+def doctor_move_up_page(request, doctor_id):
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	doctors = Doctor.objects.filter(number__lte=doctor.number).order_by('-number')
+	if doctors.count() > 1:
+		one = doctors[0]
+		two = doctors[1]
+		tmp = one.number
+		one.number = two.number
+		two.number = tmp
+		one.save()
+		two.save()
+	return HttpResponseRedirect(reverse('doctors_url'))
+
+@has_premission()
+def doctor_move_down_page(request, doctor_id):
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	doctors = Doctor.objects.filter(number__gte=doctor.number).order_by('number')
+	if doctors.count() > 1:
+		one = doctors[0]
+		two = doctors[1]
+		tmp = one.number
+		one.number = two.number
+		two.number = tmp
+		one.save()
+		two.save()
+	return HttpResponseRedirect(reverse('doctors_url'))

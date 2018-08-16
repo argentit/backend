@@ -1,0 +1,18 @@
+{% if request.user.is_authenticated %}
+	<div class="row">
+		<div class="col">
+			<a href="{{left_url}}" class="no-underline">
+				<button class="btn btn-primary btn-block my-3 rounded-0">
+					<i class="fas fa-arrow-left"></i>
+				</button>
+			</a>
+		</div>
+		<div class="col">
+			<a href="{{right_url}}" class="no-underline">
+				<button class="btn btn-primary btn-block my-3 rounded-0">
+					<i class="fas fa-arrow-right"></i>
+				</button>
+			</a>
+		</div>
+	</div>
+{% endif %}

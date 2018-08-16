@@ -1,0 +1,25 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+	<h1 class="container pl-0 {{h1_class}}">{{header}}</h1>
+	{% if error %}
+		<div class="alert alert-danger rounded-0 container">{{error_message}}</div>
+	{% endif %}
+	<form method="POST" action="{{request.path}}" class="container p-0 mt-3" enctype="multipart/form-data">
+		{% csrf_token %}
+			<div class="form-group">
+				<label class=" pl-0" for="image">{{label}}:</label>
+				<input type="file" name="image" value="">
+			</div>
+		<div class="row ">
+			<div class="col-2 ">
+				<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">
+			</div>
+			<div class="col-2">
+				<a href="{% url 'doctor_url' doctor_id %}">
+					<div class="btn btn-danger container-fluid rounded-0">Отменить</div>
+				</a>
+			</div>
+		</div>
+	</form>
+{% endblock %}

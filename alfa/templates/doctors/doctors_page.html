@@ -11,26 +11,37 @@
 	{% endwith %}
 	<div class="row">
 		{% for doctor in doctors %}
-			<div class="border border-0 col-xl-6 my-2">
-				<div class="row">
-					<div class="col-4">
-						<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{{doctor.photo.url}}" alt="" style="width:100%"></a>
-					</div>
-					<div class="col-8">
-						<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey no-underline"><h4 class="card-titl">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h4></a>
-						<ul class="list-group list-group-flush">
-							{% for item in doctor.type.all %}
-								<li class="list-group-item text-mgrey">
-									{{item.name}}
-								</li>
-							{% endfor %}
-						</ul>
-						{% url 'remove_doctor_url' doctor.id  as remove_url %}
-						{% url 'edit_doctor_url' doctor.id  as edit_url %}
-						{% include 'admin/remove_edit_buttons.html' %}
+			{% if request.user.is_authenticated or doctor.is_active %}
+				<div class="border border-0 col-xl-6 my-2">
+					<div class="row">
+						<div class="col-4">
+							<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{{doctor.photo.url}}" alt="" style="width:100%"></a>
+						</div>
+						<div class="col-8">
+							<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey no-underline">
+								<h4 class="card-titl">
+									{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}} {{doctor.number}}
+								</h4>
+							</a>
+							{% url 'doctor_move_up_url' doctor.id as left_url %}
+							{% url 'doctor_move_down_url' doctor.id as right_url %}
+							{% include 'admin/left_right_buttons.html' %}
+							<ul class="list-group list-group-flush">
+								{% for item in doctor.types.all %}
+									<li class="list-group-item text-mgrey">
+										{{item.name}}
+									</li>
+								{% endfor %}
+							</ul>
+							{% url 'remove_doctor_url' doctor.id  as remove_url %}
+							{% url 'activate_doctor_url' doctor.id as activate_url %}
+							{% with doctor.is_active as is_active %}
+								{% include 'admin/remove_edit_buttons.html' %}
+							{% endwith %}
+						</div>
 					</div>
 				</div>
-			</div>
+			{% endif %}
 		{% endfor %}
 	</div>
 {% endblock %}

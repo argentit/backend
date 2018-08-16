@@ -25,7 +25,7 @@ class ResultForm(forms.ModelForm):
 class DoctorForm(forms.ModelForm):
 	class Meta:
 		model = Doctor
-		fields = ['name', 'surname', 'patronymic', 'exp', 'photo', ]
+		fields = ['surname', 'name', 'patronymic', 'exp', 'photo', ]
 		labels = {
 			'name': 'Имя:',
 			'surname': 'Фамилия:',
@@ -104,3 +104,6 @@ class TechnologyForm(forms.Form):
 
 class TextForm(forms.Form):
 	name = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'required': '', 'rows': '4'}))
+
+class ImageForm(forms.Form):
+	image = forms.ImageField(required=True)

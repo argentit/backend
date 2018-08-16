@@ -8,6 +8,13 @@
 	<div class="row">
 		<div class="col-4">
 			<img class="w-100" src="{{doctor.photo.url}}">
+			{% if request.user.is_authenticated %}
+				<a href="{% url 'edit_image_doctor_url' doctor.id %}">
+					<div class="btn btn-primary container-fluid rounded-0 mt-3">
+						Изменить изображение
+					</div>
+				</a>
+			{% endif %}
 		</div>
 		<div class="col ml-3">
 			<div class="row">
@@ -15,15 +22,37 @@
 			</div>
 			<div class="row">
 				<ul class="list-group list-group-flush col-6">
-					{% for type in doctor.type.all %}
+					{% for type in doctor.types.all %}
 						<li class="list-group-item pl-0">
-							{{type.name}}
+							<div class="row">
+								<div class="col">
+									{{type.name}}
+								</div>
+								<div class="col">
+									{% url 'remove_doctor_type_url' doctor_id=doctor.id id=type.id  as remove_url %}
+									{% include 'admin/remove_edit_buttons.html' %}
+								</div>
+							</div>
+
 						</li>
 					{% endfor %}
 				</ul>
 			</div>
 			<div class="row">
-				Опыт работы: {{years}}
+				<div class="col-6 pl-0">
+					{% if request.user.is_authenticated %}
+						<a href="{% url 'new_doctor_type_url' doctor.id %}">
+							<div class="btn btn-primary container-fluid rounded-0 mb-3">
+								Добавить
+							</div>
+						</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="row mt-5">
+				<p class="h4">
+					Опыт работы: {{years}}
+				</p>
 			</div>
 		</div>
 	</div>
