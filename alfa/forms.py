@@ -2,6 +2,7 @@ from django import forms
 from alfa.models import *
 from django_select2.forms import Select2MultipleWidget
 from django_select2.forms import Select2Widget
+from datetime import date
 
 
 class ResultForm(forms.ModelForm):
@@ -36,7 +37,7 @@ class DoctorForm(forms.ModelForm):
 			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'surname': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'patronymic': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
-			'exp': forms.widgets.SelectDateWidget(attrs={'class': 'form-control rounded-0 col mx-3', 'required': ''},),
+			'exp': forms.widgets.SelectDateWidget(years=range(1950, date.today().year + 1),attrs={'class': 'form-control rounded-0 col mx-3', 'required': ''},),
 			# 'img_before': forms.widgets.FileInput(attrs={'required':''}),
 			# 'img_after': forms.widgets.FileInput(attrs={'required':''}),
 		}

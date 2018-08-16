@@ -13,10 +13,15 @@ class Practice(models.Model):
 class Service(models.Model):
 	slug = models.SlugField(max_length = 20, default = '')
 	icon = models.ImageField(upload_to='img/service_icons/', default='img/service_icons/default.jpg')
-	name = models.CharField(max_length = 50, default = '')
+	name = models.CharField(max_length = 500, default = '')
 	description = models.CharField(max_length = 10000, default = '')
 	price = models.CharField(max_length = 1000, default = '')
 	text = models.TextField(default='')
+
+class SubService(models.Model):
+	name = models.CharField(max_length = 500, default = '')
+	price = models.CharField(max_length = 1000, default = '')
+	service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='sub_survice', default=None, null=True)
 
 class Technology(models.Model):
 	name = models.CharField(max_length = 20, default = '')
