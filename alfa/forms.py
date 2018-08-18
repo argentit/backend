@@ -72,7 +72,7 @@ class ResultForm(forms.ModelForm):
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 4, 'required': ''}),
 			'img_before': forms.widgets.FileInput(attrs={'required':''}),
 			'img_after': forms.widgets.FileInput(attrs={'required':''}),
-			'doctor': forms.widgets.CheckboxSelectMultiple(),
+			'doctor': forms.widgets.Select(attrs={'class':'form-control col-6'}),
 		}
 		labels = {
 			'doctor': 'Доктор:',

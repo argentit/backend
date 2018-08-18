@@ -17,18 +17,18 @@ def new_result_page(request):
 	if request.method == 'POST':
 		form = ResultForm(request.POST, request.FILES)
 		if form.is_valid():
-			#item = form.save(commit=False)
-			item = Result()
-			print(form.cleaned_data['img_after'])
-			item.doctor = form.cleaned_data['doctor']
-			item.img_after = form.cleaned_data['img_after']
-			item.img_before = form.cleaned_data['img_before']
-			item.text = form.cleaned_data['text']
-			item.save()
+			item = form.save()
+			# item = Result()
+			# print(form.cleaned_data['doctor'])
+			# item.doctor.add(form.cleaned_data['doctor'])
+			# item.img_after = form.cleaned_data['img_after']
+			# item.img_before = form.cleaned_data['img_before']
+			# item.text = form.cleaned_data['text']
+			# item.save()
 			return HttpResponseRedirect(reverse('results_url'))
 		else:
 			context['error'] = True
-			context['error_message'] = 'Неверно заполнена форма.'
+			context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
 			context['form'] = form
 			return render(request, template_name, context)
 	else:

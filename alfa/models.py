@@ -92,7 +92,7 @@ class Article(models.Model):
 		ordering = ['-datetime']
 
 class Result(models.Model):
-	doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='results')
+	doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='results', blank=True)
 	img_before = models.ImageField(upload_to='img/results/', default='img/results/default.jpg')
 	img_after = models.ImageField(upload_to='img/results/', default='img/results/default.jpg')
 	text = models.TextField(default='')

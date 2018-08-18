@@ -19,7 +19,6 @@
 				{{article.content|safe}}
 			</div>
 			{% url 'remove_news_url' article.id  as remove_url %}
-			{% url 'edit_news_url' article.id  as edit_url %}
 			{% include 'admin/remove_edit_buttons.html' %}
 		</div>
 	{% endfor %}
