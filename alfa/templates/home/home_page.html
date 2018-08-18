@@ -13,7 +13,7 @@
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<a href="#{{active_element.post.id}}"><img class="d-block w-100 mh-100" src="{{active_element.image.url}}" alt="{{active_element.title}}" style="max-width:100%; max-height:100%;"></a>
+					<a {% if active_element.post %}href="#{{active_element.post.id}}"{% endif %}"><img class="d-block w-100 mh-100" src="{{active_element.image.url}}" alt="{{active_element.title}}" style="max-width:100%; max-height:100%;"></a>
 					<div class="carousel-caption d-none d-md-block">
 						<a href="#{{active_element.post.id}}" class="text-mgrey no-underline"><h5 class="h2">{{active_element.title}}</h5></a>
 						<a href="#{{active_element.post.id}}" class="text-mgrey no-underline"><p>{{active_element.text}}</p></a>
@@ -21,7 +21,7 @@
 				</div>
 				{% for item in carousel %}
 					<div class="carousel-item">
-						<a href="#{{item.post.id}}"><img class="d-block w-100 mh-100" src="{{item.image.url}}" alt="{{item.title}}" style="max-width:100%; max-height:100%;"></a>
+						<a {% if item.post %}href="#{{item.post.id}}"{% endif %}><img class="d-block w-100 mh-100" src="{{item.image.url}}" alt="{{item.title}}" style="max-width:100%; max-height:100%;"></a>
 						<div class="carousel-caption d-none d-md-block">
 							<a href="#{{item.post.id}}" class=" text-mgrey no-underline"><h5 class="h2">{{item.title}}</h5></a>
 							<a href="#{{item.post.id}}" class="text-mgrey no-underline"><p>{{item.text}}</p></a>

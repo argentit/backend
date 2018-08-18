@@ -10,7 +10,6 @@ def home_page(request):
 	template_name = 'home/home_page.html'
 	context['all_posts'] = HomePost.objects.all()
 	all = CarouselElement.objects.all()
-	print(all)
 	if all.count() == 0:
 		return render(request, template_name, context)
 	context['active_element'] = all[0]
@@ -73,10 +72,12 @@ def new_carousel_element_page(request):
 		else:
 			context['error'] = True
 			context['form'] = CarouselElementForm()
+			context['form'].fields['post'].required = False
 			context['error_message'] = 'Неверно заполнена форма.'
 			return render(request, template_name, context)
 	else:
 		context['form'] = CarouselElementForm()
+		context['form'].fields['post'].required = False
 		return render(request, template_name, context)
 
 @has_premission()

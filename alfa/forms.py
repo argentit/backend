@@ -15,6 +15,7 @@ class SelectServiceForm(forms.ModelForm):
 			'services' : 'Услуга:'
 		}
 
+
 class HomePostForm(forms.ModelForm):
 	url = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}), label='Ссылка:')
 	class Meta:
@@ -47,6 +48,9 @@ class CarouselElementForm(forms.ModelForm):
 			'text': 'Текст:',
 			'post': 'Ссылка:',
 			'image': 'Изображение:',
+		}
+		requireds = {
+			'post': False
 		}
 
 class ResultForm(forms.ModelForm):

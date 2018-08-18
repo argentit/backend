@@ -18,7 +18,7 @@ class CarouselElement(models.Model):
 	title = models.CharField(max_length = 100, default=None, null=True)
 	text = models.CharField(max_length = 5000, default=None, null=True)
 	image = models.ImageField(upload_to='img/home_page/', default='img/home_page/default.jpg')
-	post = models.ForeignKey(HomePost, on_delete=models.CASCADE,)
+	post = models.ForeignKey(HomePost, on_delete=models.CASCADE, blank=True, null=True, default=None)
 	datetime = models.DateTimeField(auto_now_add=True, blank=True)
 	number = models.CharField(max_length=10, default='0')
 	class Meta:
