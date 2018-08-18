@@ -40,7 +40,7 @@ class CarouselElementForm(forms.ModelForm):
 		widgets = {
 			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 5, 'required': ''}),
-			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0', 'required': ''}),
+			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
 		}
 		labels = {
 			'title': 'Заголовок:',
