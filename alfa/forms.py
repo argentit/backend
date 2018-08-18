@@ -15,6 +15,17 @@ class SelectServiceForm(forms.ModelForm):
 			'services' : 'Услуга:'
 		}
 
+class SelectTechnologyForm(forms.ModelForm):
+	class Meta:
+		model = Doctor
+		fields = ['technologies']
+		widgets = {
+			'technologies': forms.widgets.CheckboxSelectMultiple(attrs={'class': 'list-unstyled rounded-0',},),
+		}
+		labels = {
+			'technologies' : 'Технологии:'
+		}
+
 
 class HomePostForm(forms.ModelForm):
 	url = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}), label='Ссылка:')

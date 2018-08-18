@@ -47,6 +47,8 @@ class Technology(models.Model):
 	slug = models.SlugField(max_length = 20, default = '')
 	img = models.ImageField(upload_to='img/technologies/', default='img/technologies/default.jpg')
 	text = models.TextField(default='')
+	def __str__(self):
+		return self.name
 
 class Doctor(models.Model):
 	name = models.CharField(max_length = 20, default = '')
@@ -57,7 +59,7 @@ class Doctor(models.Model):
 	slug = models.SlugField(max_length = 20, default = '')
 	photo = models.ImageField(upload_to='img/doctors/', default='img/doctors/default.jpg')
 	services = models.ManyToManyField(Service, related_name='doctors', default=None, blank=True)
-	technologies = models.ManyToManyField(Technology, related_name='doctors', default=None)
+	technologies = models.ManyToManyField(Technology, related_name='doctors', default=None, blank=True)
 	is_active = models.BooleanField(default=False)
 	number = models.CharField(max_length=10, default='0')
 	def __str__(self):

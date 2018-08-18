@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.decorators import *
 from alfa.models import  Doctor, Practice, Education, Certificate, Doctors_type, Service
-from alfa.forms import DoctorForm, TextForm, ImageForm, SelectServiceForm
+from alfa.forms import DoctorForm, TextForm, ImageForm, SelectServiceForm, SelectTechnologyForm
 from datetime import date
 
 def doctors_page(request):
@@ -472,6 +472,29 @@ def new_service_for_doctor_page(request, doctor_id):
 		if form.is_valid():
 			print(form.cleaned_data['services'])
 			doctor.services.set(form.cleaned_data['services'])
+			doctor.save()
+			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+		else:
+			context['error'] = True
+			context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
+			return render(request, template_name, context)
+	else:
+		return render(request, template_name, context)
+
+@has_premission()
+def new_technology_for_doctor_page(request, doctor_id):
+	context = {}
+	template_name = 'doctors/new_technology_for_doctor_page.html'
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	context['doctor_id'] = doctor.id
+	context['form'] = SelectTechnologyForm(instance=doctor)
+	if request.method == 'POST':
+		form = SelectTechnologyForm(request.POST)
+		if form.is_valid():
+			doctor.technologies.set(form.cleaned_data['technologies'])
 			doctor.save()
 			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
 		else:

@@ -187,4 +187,11 @@
 			</div>
 		</a>
 	{% endif %}
+	{% if request.user.is_authenticated %}
+		<a href="{% url 'new_technology_for_doctor_url' doctor.id %}">
+			<div class="btn btn-primary container-fluid rounded-0 mb-3">
+				Управлять технологиями
+			</div>
+		</a>
+	{% endif %}
 {% endblock %}

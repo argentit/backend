@@ -15,6 +15,7 @@ urlpatterns = [
 				url(r'^login/$', admin_views.admin_auth_page, name = 'admin_auth_url'),
 				url(r'^logout/$', admin_views.logout_page, name = 'logout_url'),
 				url(r'^doctors/new/$', doctors.new_doctor_page, name = 'new_doctor_url'),
+				url(r'^doctors/(?P<doctor_id>\d+)/technologies/new/$', doctors.new_technology_for_doctor_page, name = 'new_technology_for_doctor_url'),
 				url(r'^doctors/(?P<doctor_id>\d+)/service/new/$', doctors.new_service_for_doctor_page, name = 'new_service_for_doctor_url'),
 				url(r'^doctors/(?P<doctor_id>\d+)/service/remove/(?P<id>\d+)$', doctors.remove_service_for_doctor_page, name = 'remove_service_for_doctor_url'),
 				url(r'^doctors/(?P<doctor_id>\d+)/move/up/$', doctors.doctor_move_up_page, name = 'doctor_move_up_url'),
