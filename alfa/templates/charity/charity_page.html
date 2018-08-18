@@ -24,7 +24,6 @@
 					</div>
 				</div>
 				{% url 'remove_charity_url' item.id  as remove_url %}
-				{% url 'edit_charity_url' item.id  as edit_url %}
 				{% include 'admin/remove_edit_buttons.html' %}
 			</div>
 		{% endfor %}
