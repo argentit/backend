@@ -38,7 +38,6 @@ def new_charity_page(request):
 	context['form'] = CharityForm()
 	context['object_id'] = '0'
 	if request.method == 'GET':
-		context['error'] = False
 		return render(request, 'charity/new_charity_page.html', context)
 	if request.method == 'POST':
 		form = CharityForm(request.POST, request.FILES)
@@ -48,7 +47,6 @@ def new_charity_page(request):
 			type(form.cleaned_data['text'])
 			charity_object.img = form.cleaned_data['img']
 			charity_object.save()
-			context['error'] = False
 			return HttpResponseRedirect(reverse('charity_url'))
 		else:
 			context['error'] = True

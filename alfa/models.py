@@ -63,7 +63,7 @@ class Doctor(models.Model):
 	is_active = models.BooleanField(default=False)
 	number = models.CharField(max_length=10, default='0')
 	def __str__(self):
-		return self.name + ' ' + self.surname + ' ' + self.patronymic
+		return self.surname + ' ' + self.name + ' ' + self.patronymic
 	class Meta:
 		ordering = ['number']
 
@@ -100,6 +100,9 @@ class Result(models.Model):
 class Charity(models.Model):
 	img = models.ImageField(upload_to='img/charity/', default='img/charity/default.jpg')
 	text = models.CharField(max_length=10000, default='')
+	datetime = models.DateTimeField(auto_now=True)
+	class Meta:
+		ordering = ['-datetime']
 
 class Job(models.Model):
 	name = models.CharField(max_length=100, default='')

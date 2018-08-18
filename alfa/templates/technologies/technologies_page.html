@@ -22,7 +22,6 @@
 
 				</div>
 				{% url 'remove_technology_url' tech.id  as remove_url %}
-				{% url 'edit_technology_url' tech.id  as edit_url %}
 				{% include 'admin/remove_edit_buttons.html' %}
 			</div>
 		{% endfor %}
