@@ -9,7 +9,7 @@ class SelectServiceForm(forms.ModelForm):
 		model = Doctor
 		fields = ['services']
 		widgets = {
-			'services': forms.widgets.CheckboxSelectMultiple(attrs={'class': 'form-control rounded-0',},),
+			'services': forms.widgets.CheckboxSelectMultiple(attrs={'class': 'list-unstyled rounded-0',},),
 		}
 		labels = {
 			'services' : 'Услуга:'

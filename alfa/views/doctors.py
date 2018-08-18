@@ -452,6 +452,7 @@ def remove_service_for_doctor_page(request, doctor_id, id):
 	except Service.DoesNotExist:
 		return HttpResponseRedirect(reverse('doctors_url'))
 	doctor.services.remove(service)
+	doctor.save()
 	return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
 
 @has_premission()
@@ -463,15 +464,14 @@ def new_service_for_doctor_page(request, doctor_id):
 	except Doctor.DoesNotExist:
 		return HttpResponseRedirect(reverse('doctors_url'))
 	context['doctor_id'] = doctor.id
-	context['form'] = SelectServiceForm()
+	context['form'] = SelectServiceForm(instance=doctor)
+	print(SelectServiceForm().fields['services'])
 	# context['form'].fields['services'].required = False
 	if request.method == 'POST':
 		form = SelectServiceForm(request.POST)
 		if form.is_valid():
 			print(form.cleaned_data['services'])
-			for item in form.cleaned_data['services']:
-				doctor.services.add(item)
-			# doctor.services.add(form.cleaned_data['services'])
+			doctor.services.set(form.cleaned_data['services'])
 			doctor.save()
 			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
 		else:
