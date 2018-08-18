@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 	'ckeditor_uploader',
 	'django_select2',
 	'bootstrap4',
+	'django_cleanup',
 ]
 
 MIDDLEWARE = [
