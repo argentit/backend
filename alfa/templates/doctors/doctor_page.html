@@ -21,17 +21,19 @@
 				<h1 class="h1">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h1>
 			</div>
 			<div class="row">
-				<ul class="list-group list-group-flush col-6">
+				<ul class="list-group list-group-flush col-8">
 					{% for type in doctor.types.all %}
 						<li class="list-group-item pl-0">
 							<div class="row">
 								<div class="col">
 									{{type.name}}
 								</div>
-								<div class="col">
-									{% url 'remove_doctor_type_url' doctor_id=doctor.id id=type.id  as remove_url %}
-									{% include 'admin/remove_edit_buttons.html' %}
-								</div>
+								{% if user.is_authenticated %}
+									<div class="col">
+										{% url 'remove_doctor_type_url' doctor_id=doctor.id id=type.id  as remove_url %}
+										{% include 'admin/remove_edit_buttons.html' %}
+									</div>
+								{% endif %}
 							</div>
 
 						</li>
