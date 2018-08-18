@@ -9,9 +9,15 @@
 	<p>{{service.description}}</p>
 	<h2>Стоимость: {{service.price}}</h2>
 	{% if service.doctors.count != 0 %}
-		{% with service.doctors.all as doctors %}
-			{% include "doctors_list.html" %}
-		{% endwith %}
+		<h4>Доктора:</h4>
+		<div class="row">
+			{% for doctor in service.doctors.all %}
+				<div class="col-3">
+					<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
+					<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
+				</div>
+			{% endfor %}
+		</div>
 	{% endif %}
 
 {% endblock %}

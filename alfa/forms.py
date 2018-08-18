@@ -4,6 +4,50 @@ from django_select2.forms import Select2MultipleWidget
 from django_select2.forms import Select2Widget
 from datetime import date
 
+class SelectServiceForm(forms.ModelForm):
+	class Meta:
+		model = Doctor
+		fields = ['services']
+		widgets = {
+			'services': forms.widgets.CheckboxSelectMultiple(attrs={'class': 'form-control rounded-0',},),
+		}
+		labels = {
+			'services' : 'Услуга:'
+		}
+
+class HomePostForm(forms.ModelForm):
+	url = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}), label='Ссылка:')
+	class Meta:
+		model = HomePost
+		fields = ['title', 'url', 'text']
+		widgets = {
+			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 5, 'required': ''}),
+
+		}
+		labels = {
+			'title': 'Заголовок:',
+			'url': 'Ссылка:',
+			'text': 'Текст:',
+		}
+
+class CarouselElementForm(forms.ModelForm):
+	title = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}), label='Заголовок:')
+	text = forms.CharField(required=False, widget=forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': 4,}), label='Текст:')
+	class Meta:
+		model = CarouselElement
+		fields = ['title', 'text', 'post', 'image']
+		widgets = {
+			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 5, 'required': ''}),
+			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0', 'required': ''}),
+		}
+		labels = {
+			'title': 'Заголовок:',
+			'text': 'Текст:',
+			'post': 'Ссылка:',
+			'image': 'Изображение:',
+		}
 
 class ResultForm(forms.ModelForm):
 	class Meta:
@@ -37,20 +81,10 @@ class DoctorForm(forms.ModelForm):
 			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'surname': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'patronymic': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
-			'exp': forms.widgets.SelectDateWidget(years=range(1950, date.today().year + 1),attrs={'class': 'form-control rounded-0 col mx-3', 'required': ''},),
+			'exp': forms.widgets.SelectDateWidget(years=range(1980, date.today().year + 1),attrs={'class': 'form-control rounded-0 col mx-3', 'required': ''},),
 			# 'img_before': forms.widgets.FileInput(attrs={'required':''}),
 			# 'img_after': forms.widgets.FileInput(attrs={'required':''}),
 		}
-
-
-class NewDoctor(forms.Form):
-	name = forms.CharField()
-	surname = forms.CharField()
-	patronymic = forms.CharField()
-	slug = forms.CharField()
-	exp = forms.DateField()
-	image = forms.ImageField()
-
 class AuthForm(forms.Form):
 	login = forms.CharField()
 	password = forms.CharField(widget=forms.PasswordInput)

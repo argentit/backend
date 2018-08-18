@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.decorators import *
-from alfa.models import  Doctor, Practice, Education, Certificate, Doctors_type
-from alfa.forms import DoctorForm, TextForm, ImageForm
+from alfa.models import  Doctor, Practice, Education, Certificate, Doctors_type, Service
+from alfa.forms import DoctorForm, TextForm, ImageForm, SelectServiceForm
 from datetime import date
 
 def doctors_page(request):
@@ -94,7 +94,6 @@ def remove_doctor_page(request, id):
 		context['back_url'] = reverse('doctors_url')
 		context['text'] = 'Действительно удалить доктора \"' + str(doctor) + '\"' + '?'
 		return render(request, 'admin/really_remove_page.html', context)
-	return HttpResponse('ok')
 
 
 
@@ -337,7 +336,7 @@ def activate_doctor_page(request, id):
 	else:
 		doctor.is_active = True
 	doctor.save()
-	return HttpResponseRedirect(reverse('doctors_url'))
+	return HttpResponseRedirect(reverse('doctors_url') + '#' + str(doctor.id))
 
 @has_premission()
 def remove_doctor_type_page(request, doctor_id, id):
@@ -422,7 +421,7 @@ def doctor_move_up_page(request, doctor_id):
 		two.number = tmp
 		one.save()
 		two.save()
-	return HttpResponseRedirect(reverse('doctors_url'))
+	return HttpResponseRedirect(reverse('doctors_url') + '#' + str(doctor.id))
 
 @has_premission()
 def doctor_move_down_page(request, doctor_id):
@@ -439,4 +438,45 @@ def doctor_move_down_page(request, doctor_id):
 		two.number = tmp
 		one.save()
 		two.save()
-	return HttpResponseRedirect(reverse('doctors_url'))
+	return HttpResponseRedirect(reverse('doctors_url') + '#' + str(doctor.id))
+
+@has_premission()
+def remove_service_for_doctor_page(request, doctor_id, id):
+	context = {}
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	try:
+		service = Service.objects.get(id=doctor_id)
+	except Service.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	doctor.services.remove(service)
+	return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+
+@has_premission()
+def new_service_for_doctor_page(request, doctor_id):
+	context = {}
+	template_name = 'doctors/new_service_for_doctor_page.html'
+	try:
+		doctor = Doctor.objects.get(id=doctor_id)
+	except Doctor.DoesNotExist:
+		return HttpResponseRedirect(reverse('doctors_url'))
+	context['doctor_id'] = doctor.id
+	context['form'] = SelectServiceForm()
+	# context['form'].fields['services'].required = False
+	if request.method == 'POST':
+		form = SelectServiceForm(request.POST)
+		if form.is_valid():
+			print(form.cleaned_data['services'])
+			for item in form.cleaned_data['services']:
+				doctor.services.add(item)
+			# doctor.services.add(form.cleaned_data['services'])
+			doctor.save()
+			return HttpResponseRedirect(reverse('doctor_url', kwargs={'id': doctor.id}))
+		else:
+			context['error'] = True
+			context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
+			return render(request, template_name, context)
+	else:
+		return render(request, template_name, context)

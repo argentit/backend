@@ -4,7 +4,25 @@ from django.conf import settings
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
+class HomePost(models.Model):
+	title = models.CharField(max_length = 100, default = '')
+	text = models.CharField(max_length = 5000, default = '')
+	url = models.URLField(default = None, null=True)
+	datetime = models.DateTimeField(auto_now_add=True, blank=True)
+	class Meta:
+		ordering = ['-datetime']
+	def __str__(self):
+		return self.title
 
+class CarouselElement(models.Model):
+	title = models.CharField(max_length = 100, default=None, null=True)
+	text = models.CharField(max_length = 5000, default=None, null=True)
+	image = models.ImageField(upload_to='img/home_page/', default='img/home_page/default.jpg')
+	post = models.ForeignKey(HomePost, on_delete=models.CASCADE,)
+	datetime = models.DateTimeField(auto_now_add=True, blank=True)
+	number = models.CharField(max_length=10, default='0')
+	class Meta:
+		ordering = ['number']
 
 class Practice(models.Model):
 	name = models.CharField(max_length = 500, default = '')
@@ -16,6 +34,8 @@ class Service(models.Model):
 	description = models.CharField(max_length = 10000, default = '')
 	price = models.CharField(max_length = 1000, default = '')
 	text = models.TextField(default='')
+	def __str__(self):
+		return self.name
 
 class SubService(models.Model):
 	name = models.CharField(max_length = 500, default = '')
@@ -36,7 +56,7 @@ class Doctor(models.Model):
 	practice = models.ManyToManyField(Practice, related_name='doctors', default=None)
 	slug = models.SlugField(max_length = 20, default = '')
 	photo = models.ImageField(upload_to='img/doctors/', default='img/doctors/default.jpg')
-	services = models.ManyToManyField(Service, related_name='doctors', default=None)
+	services = models.ManyToManyField(Service, related_name='doctors', default=None, blank=True)
 	technologies = models.ManyToManyField(Technology, related_name='doctors', default=None)
 	is_active = models.BooleanField(default=False)
 	number = models.CharField(max_length=10, default='0')
@@ -65,9 +85,9 @@ class Certificate(models.Model):
 class Article(models.Model):
 	title = models.CharField(max_length = 100, default = '')
 	content = RichTextUploadingField(blank=True, null=True)
-	date = models.DateField(auto_now=True)
+	datetime = models.DateTimeField(auto_now=True)
 	class Meta:
-		ordering = ['-date']
+		ordering = ['-datetime']
 
 class Result(models.Model):
 	doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='results')

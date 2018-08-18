@@ -12,7 +12,7 @@
 	<div class="row">
 		{% for doctor in doctors %}
 			{% if request.user.is_authenticated or doctor.is_active %}
-				<div class="border border-0 col-xl-6 my-2">
+				<div class="border border-0 col-xl-6 my-2" id="doctor.id">
 					<div class="row">
 						<div class="col-4">
 							<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{{doctor.photo.url}}" alt="" style="width:100%"></a>
@@ -20,7 +20,7 @@
 						<div class="col-8">
 							<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey no-underline">
 								<h4 class="card-titl">
-									{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}} {{doctor.number}}
+									{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}
 								</h4>
 							</a>
 							{% url 'doctor_move_up_url' doctor.id as left_url %}

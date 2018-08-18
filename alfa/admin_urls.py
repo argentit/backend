@@ -2,12 +2,21 @@ from django.urls import path
 from django.conf.urls import url
 from django.conf.urls import include
 
-from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results
+from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home
 
 urlpatterns = [
+				url(r'^home_post/new/$', home.new_home_page, name = 'new_home_post_url'),
+				url(r'^home_post/(?P<id>\d+)/remove/$', home.remove_home_post_page, name = 'remove_home_post_url'),
+				url(r'^carousel/(?P<id>\d+)/move/up/$', home.carousel_element_move_up_page, name = 'carousel_element_move_up_url'),
+				url(r'^carousel/(?P<id>\d+)/move/down/$', home.carousel_element_move_down_page, name = 'carousel_element_move_down_url'),
+				url(r'^carousel_element/remove/(?P<id>\d+)$', home.remove_carousel_element_page, name = 'remove_carousel_element_url'),
+				url(r'^carousel_element/new/$', home.new_carousel_element_page, name = 'new_carousel_element_url'),
+				url(r'^carousel/edit/$', home.edit_carousel_page, name = 'edit_carousel_url'),
 				url(r'^login/$', admin_views.admin_auth_page, name = 'admin_auth_url'),
 				url(r'^logout/$', admin_views.logout_page, name = 'logout_url'),
 				url(r'^doctors/new/$', doctors.new_doctor_page, name = 'new_doctor_url'),
+				url(r'^doctors/(?P<doctor_id>\d+)/service/new/$', doctors.new_service_for_doctor_page, name = 'new_service_for_doctor_url'),
+				url(r'^doctors/(?P<doctor_id>\d+)/service/remove/(?P<id>\d+)$', doctors.remove_service_for_doctor_page, name = 'remove_service_for_doctor_url'),
 				url(r'^doctors/(?P<doctor_id>\d+)/move/up/$', doctors.doctor_move_up_page, name = 'doctor_move_up_url'),
 				url(r'^doctors/(?P<doctor_id>\d+)/move/down/$', doctors.doctor_move_down_page, name = 'doctor_move_down_url'),
 				url(r'^doctors/(?P<doctor_id>\d+)/image/edit/$', doctors.edit_image_doctor_page, name = 'edit_image_doctor_url'),

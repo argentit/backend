@@ -8,7 +8,7 @@ urlpatterns = [
 	url(r'^select2/', include('django_select2.urls')),
 	url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 	path('', include('alfa.urls')),
-	path('djadmin', admin.site.urls),
+	#path('djadmin', admin.site.urls),
 ]
 
 #urlpatterns += staticfiles_urlpatterns()
