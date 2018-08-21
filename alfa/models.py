@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class HomePost(models.Model):
-	title = models.CharField(max_length = 100, default = '')
+	title = models.CharField(max_length = 500, default = '')
 	text = models.CharField(max_length = 5000, default = '')
 	url = models.URLField(default = None, null=True)
 	datetime = models.DateTimeField(auto_now_add=True, blank=True)
@@ -15,7 +15,7 @@ class HomePost(models.Model):
 		return self.title
 
 class CarouselElement(models.Model):
-	title = models.CharField(max_length = 100, default=None, null=True)
+	title = models.CharField(max_length = 500, default=None, null=True)
 	text = models.CharField(max_length = 5000, default=None, null=True)
 	image = models.ImageField(upload_to='img/home_page/', default='img/home_page/default.jpg')
 	post = models.ForeignKey(HomePost, on_delete=models.CASCADE, blank=True, null=True, default=None)
@@ -43,7 +43,7 @@ class SubService(models.Model):
 	service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='sub_survice', default=None, null=True)
 
 class Technology(models.Model):
-	name = models.CharField(max_length = 20, default = '')
+	name = models.CharField(max_length = 500, default = '')
 	slug = models.SlugField(max_length = 20, default = '')
 	img = models.ImageField(upload_to='img/technologies/', default='img/technologies/default.jpg')
 	text = models.TextField(max_length = 10000000,default='')
@@ -68,7 +68,7 @@ class Doctor(models.Model):
 		ordering = ['number']
 
 class Doctors_type(models.Model):
-	name = models.CharField(max_length = 100, default = '')
+	name = models.CharField(max_length = 500, default = '')
 	doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='types', default=None, null=True)
 
 class Skill(models.Model):
@@ -85,7 +85,7 @@ class Certificate(models.Model):
 	name = models.CharField(max_length=200, default='')
 
 class Article(models.Model):
-	title = models.CharField(max_length = 100, default = '')
+	title = models.CharField(max_length = 500, default = '')
 	content = RichTextUploadingField(blank=True, null=True)
 	datetime = models.DateTimeField(auto_now=True)
 	class Meta:
@@ -105,10 +105,10 @@ class Charity(models.Model):
 		ordering = ['-datetime']
 
 class Job(models.Model):
-	name = models.CharField(max_length=100, default='')
+	name = models.CharField(max_length=500, default='')
 	description = models.CharField(max_length=10000, default='')
 
 class Document(models.Model):
-	name = models.CharField(max_length=100, default='')
-	type = models.CharField(max_length=100, default='')
+	name = models.CharField(max_length=500, default='')
+	type = models.CharField(max_length=500, default='')
 	file = models.FileField(upload_to='documents/')
