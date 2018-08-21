@@ -46,7 +46,7 @@ class Technology(models.Model):
 	name = models.CharField(max_length = 20, default = '')
 	slug = models.SlugField(max_length = 20, default = '')
 	img = models.ImageField(upload_to='img/technologies/', default='img/technologies/default.jpg')
-	text = models.TextField(default='')
+	text = models.TextField(max_length = 10000000,default='')
 	def __str__(self):
 		return self.name
 
