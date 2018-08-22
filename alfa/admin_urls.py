@@ -36,6 +36,7 @@ urlpatterns = [
 				url(r'^doctors/(?P<doctor_id>\d+)/practice/new/$', doctors.new_practice_page, name = 'new_practice_url'),
 				url(r'^doctors/edit/(?P<id>\d+)$', doctors.edit_doctor_page, name = 'edit_doctor_url'),
 				url(r'^doctors/remove/(?P<id>\d+)$', doctors.remove_doctor_page, name = 'remove_doctor_url'),
+				url(r'^technologies/new/(?P<id>\d+)$', technologies.new_technology_page, name = 'new_technology_url'),
 				url(r'^technologies/new/$', technologies.new_technology_page, name = 'new_technology_url'),
 				url(r'^technologies/remove/(?P<id>\d+)$', technologies.remove_technology_page, name = 'remove_technology_url'),
 				url(r'^technologies/edit/(?P<id>\d+)$', technologies.edit_technology_page, name = 'edit_technology_url'),

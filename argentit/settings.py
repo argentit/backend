@@ -32,6 +32,8 @@ INSTALLED_APPS = [
 	'django_select2',
 	'bootstrap4',
 	'django_cleanup',
+	'easy_thumbnails',
+    'image_cropping',
 ]
 
 MIDDLEWARE = [
@@ -132,5 +134,10 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 #CKEDITOR_BASEPATH = '/static/ckeditor'

@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.decorators import *
 from alfa.models import Technology
-from alfa.forms import TechnologyForm
+from alfa.forms import NewTechnologyForm, EditTechnologyForm
 
 def technologies_page(request):
 	context = {}
@@ -21,24 +21,27 @@ def technology_page(request, id):
 	return render(request, 'technologies/technology_page.html', context)
 
 @has_premission()
-def new_technology_page(request):
+def new_technology_page(request, id=None):
+	#technology = get_object_or_404(Technology, id=id) if id else None
 	context = {}
-	context['form'] = TechnologyForm()
+	context['form'] = NewTechnologyForm()
 	if request.method == 'GET':
 		return render(request, 'technologies/new_technology_page.html', context)
 	if request.method == 'POST':
-		form = TechnologyForm(request.POST, request.FILES)
+		form = TechForm(request.POST, request.FILES)
 		if form.is_valid():
-			charity_object = Technology()
-			charity_object.name = form.cleaned_data['name']
-			charity_object.img = form.cleaned_data['file']
-			charity_object.text = form.cleaned_data['description']
-			charity_object.save()
-			return HttpResponseRedirect(reverse('technologies_url'))
+			technology = form.save()
+			# technology.name = form.cleaned_data['name']
+			# technology.img = form.cleaned_data['img']
+			# technology.text = form.cleaned_data['text']
+			# technology.save()
+			return HttpResponseRedirect(reverse('edit_technology_url', args=(technology.id,)))
 		else:
 			context['error'] = True
-			context['error_message'] = 'Неверно заполнена форма.'
+			context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
 			return render(request, 'technologies/new_technology_page.html', context)
+	else:
+		return HttpResponseRedirect(reverse('technologies_url'))
 
 @has_premission()
 def remove_technology_page(request, id):
@@ -59,4 +62,21 @@ def remove_technology_page(request, id):
 @has_premission()
 def edit_technology_page(request, id):
 	context = {}
-	return HttpResponse('ok')
+	template_name = 'technologies/new_technology_page.html'
+	try:
+		technology = Technology.objects.get(id=id)
+	except Technology.DoesNotExist:
+		return HttpResponseRedirect(reverse('technologies_url'))
+	context['form'] = EditTechnologyForm(instance=technology)
+	if request.method == 'GET':
+		return render(request, template_name, context)
+	if request.method == 'POST':
+		form = EditTechnologyForm(request.POST, request.FILES, instance=technology)
+		if form.is_valid():
+			technology = form.save()
+			return HttpResponseRedirect(reverse('edit_technology_url', kwargs={'id': technology.id}))
+		else:
+			context['error'] = True
+			context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
+			return render(request, template_name, context)
+	return HttpResponseRedirect(reverse('technologies_url'))

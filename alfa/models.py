@@ -3,6 +3,7 @@ from django import forms
 from django.conf import settings
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from image_cropping import ImageCropField, ImageRatioField
 
 class HomePost(models.Model):
 	title = models.CharField(max_length = 500, default = '')
@@ -43,12 +44,18 @@ class SubService(models.Model):
 	service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='sub_survice', default=None, null=True)
 
 class Technology(models.Model):
+	#image = ImageCropField(blank=False, upload_to='img/technologies/')
+	#cropping_free = ImageRatioField('image', '300x230',free_crop=True, size_warning=True)
+	cropping = ImageRatioField('img', '500x500', hide_image_field=True, size_warning=True)
 	name = models.CharField(max_length = 500, default = '')
-	slug = models.SlugField(max_length = 20, default = '')
+	slug = models.SlugField(blank=True, max_length = 20, default = '')
 	img = models.ImageField(upload_to='img/technologies/', default='img/technologies/default.jpg')
 	text = models.TextField(max_length = 10000000,default='')
 	def __str__(self):
 		return self.name
+	def get_cropping_as_list(self):
+		if self.cropping:
+			return list(map(int, self.cropping.split(',')))
 
 class Doctor(models.Model):
 	name = models.CharField(max_length = 20, default = '')

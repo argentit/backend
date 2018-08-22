@@ -3,6 +3,8 @@ from alfa.models import *
 from django_select2.forms import Select2MultipleWidget
 from django_select2.forms import Select2Widget
 from datetime import date
+from image_cropping import ImageCropField, ImageRatioField
+from image_cropping import ImageCropWidget
 
 class SelectServiceForm(forms.ModelForm):
 	class Meta:
@@ -148,8 +150,39 @@ class ServiceForm(forms.Form):
 
 class TechnologyForm(forms.Form):
 	name = forms.CharField(required=True)
-	file = forms.ImageField(required=True)
+	#file = ImageCropField(blank=True, upload_to='uploaded_images')
 	description = forms.CharField(required=True)
+
+class EditTechnologyForm(forms.ModelForm):
+	class Meta:
+		model = Technology
+		fields = ['name', 'text', 'img','cropping',]
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
+            'img': ImageCropWidget,
+        }
+		labels = {
+			'name': 'Название:',
+			'text': 'Текст',
+			'img': 'Изображение:',
+			'cropping': ''
+		}
+
+class NewTechnologyForm(forms.ModelForm):
+	class Meta:
+		model = Technology
+		fields = ['name', 'text', 'img',]
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
+            'img': forms.widgets.FileInput(attrs={'required':''}),
+        }
+		labels = {
+			'name': 'Название:',
+			'text': 'Текст',
+			'img': 'Изображение:',
+		}
 
 class TextForm(forms.Form):
 	name = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'required': '', 'rows': '4'}))
