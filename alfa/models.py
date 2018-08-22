@@ -90,6 +90,8 @@ class Education(models.Model):
 class Certificate(models.Model):
 	doctor = models.ForeignKey(Doctor, related_name='certificates', on_delete=models.CASCADE, default=None, null=True)
 	name = models.CharField(max_length=200, default='')
+	class Meta:
+		ordering = ['-id']
 
 class Article(models.Model):
 	title = models.CharField(max_length = 500, default = '')
