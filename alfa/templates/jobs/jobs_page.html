@@ -9,15 +9,19 @@
 	{% with url_name='new_job_url' item='вакансию'%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}
-	<ul class="list-group list-group-flush">
-		{% for job in all_jobs %}
-			<li class="list-group-item">
-				<h2>{{job.name}}</h2>
-				<p>{{job.description}}</p>
-				{% url 'remove_job_url' job.id  as remove_url %}
-				{% url 'edit_job_url' job.id  as edit_url %}
-				{% include 'admin/remove_edit_buttons.html' %}
-			</li>
-		{% endfor %}
-	</ul>
+	{% if all_jobs.count %}
+		<ul class="list-group list-group-flush">
+			{% for job in all_jobs %}
+				<li class="list-group-item">
+					<h2>{{job.name}}</h2>
+					<p>{{job.description}}</p>
+					{% url 'remove_job_url' job.id  as remove_url %}
+					{% url 'edit_job_url' job.id  as edit_url %}
+					{% include 'admin/remove_edit_buttons.html' %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>В данный момент вакансий нет.</p>
+	{% endif %}
 {% endblock %}

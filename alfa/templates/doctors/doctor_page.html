@@ -6,7 +6,7 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col-4">
+		<div class="col-3">
 			<img class="w-100" src="{{doctor.photo.url}}">
 			{% if request.user.is_authenticated %}
 				<a href="{% url 'edit_image_doctor_url' doctor.id %}">
@@ -21,7 +21,7 @@
 				<h1 class="{{h1_class}}">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h1>
 			</div>
 			<div class="row">
-				<ul class="list-group list-group-flush col-8">
+				<ul class="list-group list-group-flush col-6">
 					{% for type in doctor.types.all %}
 						<li class="list-group-item pl-0">
 							<div class="row">
