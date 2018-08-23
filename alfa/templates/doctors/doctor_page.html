@@ -35,7 +35,6 @@
 									</div>
 								{% endif %}
 							</div>
-
 						</li>
 					{% endfor %}
 				</ul>
@@ -100,23 +99,29 @@
 					Базовое образование:
 				</div>
 			</div>
-			<ul class="list-group list-group-flush">
-				{% for item in all %}
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col">
-								{{item.name}}
-							</div>
-							<div class="col-4">
-								{% url 'remove_education_url' doctor_id=doctor.id id=item.id  as remove_url %}
-								{% url 'edit_education_url' doctor_id=doctor.id id=item.id as edit_url %}
-								{% include 'admin/remove_edit_buttons.html' %}
-							</div>
-						</div>
+			<div class="row">
+				<div class="col">
+					<ul class="list-group list-group-flush">
+						{% for item in all %}
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col">
+											{{item.name}}
+									</div>
+									{% if request.user.is_authenticated %}
+										<div class="col-4">
+											{% url 'remove_education_url' doctor_id=doctor.id id=item.id  as remove_url %}
+											{% url 'edit_education_url' doctor_id=doctor.id id=item.id as edit_url %}
+											{% include 'admin/remove_edit_buttons.html' %}
+										</div>
+									{% endif %}
+								</div>
 
-					</li>
-				{% endfor %}
-			</ul>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
 		{% endif %}
 	{% endwith %}
 	{% if request.user.is_authenticated %}
@@ -131,22 +136,26 @@
 			<h3 class="h3">
 					Имеет различные сертификаты курсов повышения квалификации:
 			</h3>
-			<ul class="list-group list-group-flush">
-				{% for item in all %}
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col">
-								{{item.name}}
-							</div>
-							<div class="col-4">
-								{% url 'remove_certificate_url' doctor_id=doctor.id id=item.id  as remove_url %}
-								{% url 'edit_certificate_url' doctor_id=doctor.id id=item.id as edit_url %}
-								{% include 'admin/remove_edit_buttons.html' %}
-							</div>
-						</div>
-					</li>
-				{% endfor %}
-			</ul>
+			<div class="row">
+				<div class="col">
+					<ul class="list-group list-group-flush">
+						{% for item in all %}
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col">
+										{{item.name}}
+									</div>
+									<div class="col-4">
+										{% url 'remove_certificate_url' doctor_id=doctor.id id=item.id  as remove_url %}
+										{% url 'edit_certificate_url' doctor_id=doctor.id id=item.id as edit_url %}
+										{% include 'admin/remove_edit_buttons.html' %}
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
 		{% endif %}
 	{% endwith %}
 	{% if request.user.is_authenticated %}
@@ -161,23 +170,27 @@
 			<h3 class="h3">
 				Оказывает следующие услуги:
 			</h3>
-			<ul class="list-group list-group-flush">
-				{% for item in all %}
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col">
-								<a href="{% url 'service_url' item.id %}" class="text-mgrey no-underline">
-									{{item.name}}
-								</a>
-							</div>
-							<!--{# <div class="col-2">
-								{% url 'remove_service_for_doctor_url' doctor_id=doctor.id id=item.id  as remove_url %}
-								{% include 'admin/remove_edit_buttons.html' %}
-							</div> #}-->
-						</div>
-					</li>
-				{% endfor %}
-			</ul>
+			<div class="row">
+				<div class="col">
+					<ul class="list-group list-group-flush">
+						{% for item in all %}
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col">
+										<a href="{% url 'service_url' item.id %}" class="text-mgrey no-underline">
+											{{item.name}}
+										</a>
+									</div>
+									<!--{# <div class="col-2">
+										{% url 'remove_service_for_doctor_url' doctor_id=doctor.id id=item.id  as remove_url %}
+										{% include 'admin/remove_edit_buttons.html' %}
+									</div> #}-->
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
 		{% endif %}
 	{% endwith %}
 	{% if request.user.is_authenticated %}
