@@ -11,8 +11,8 @@
 	{% endwith %}
 	<ul class="list-group list-group-flush">
 		{% for document in documents %}
-			<li class="list-group-item border border-0 p-0">
-				<a href="{{document.file.url}}" target="_blank" class="text-mgrey">{{document.name}}</a>
+			<li class="list-group-item border border-0 pl-0">
+				<a href="{{document.file.url}}" target="_blank" class="text-mgrey no-underline" style="font-size: 25px;"><i class="far fa-file-pdf mr-2"></i>{{document.name}}</a>
 				{% url 'remove_info_url' document.id  as remove_url %}
 				{% include 'admin/remove_edit_buttons.html' %}
 			</li>
