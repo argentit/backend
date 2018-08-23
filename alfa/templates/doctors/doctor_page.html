@@ -74,11 +74,13 @@
 									<div class="col">
 										{{item.name}}
 									</div>
-									<div class="col-4">
-										{% url 'remove_practice_url' doctor_id=doctor.id id=item.id  as remove_url %}
-										{% url 'edit_practice_url' doctor_id=doctor.id id=item.id as edit_url %}
-										{% include 'admin/remove_edit_buttons.html' %}
-									</div>
+									{% if request.user.is_authenticated %}
+										<div class="col-4">
+											{% url 'remove_practice_url' doctor_id=doctor.id id=item.id  as remove_url %}
+											{% url 'edit_practice_url' doctor_id=doctor.id id=item.id as edit_url %}
+											{% include 'admin/remove_edit_buttons.html' %}
+										</div>
+									{% endif %}
 								</div>
 							</li>
 						{% endfor %}
