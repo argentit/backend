@@ -9,23 +9,27 @@
 	{% with url_name='new_charity_url' item=' '%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}
-	<div class="list-group-flush">
-		{% if all.count == 0 %}
-			<p>Пока ничего нет.</p>
-		{% endif %}
-		{% for item in all %}
-			<div class="list-group-item">
-				<div class="row">
-					<div class="col">
-						<img src="{{item.img.url}}" alt="" style="width:100%">
+	<div class="row">
+		<div class="col">
+			<div class="list-group-flush">
+				{% if all.count == 0 %}
+					<p>Пока ничего нет.</p>
+				{% endif %}
+				{% for item in all %}
+					<div class="list-group-item">
+						<div class="row">
+							<div class="col">
+								<img src="{{item.img.url}}" alt="" style="width:100%">
+							</div>
+							<div class="col">
+								{{item.text}}
+							</div>
+						</div>
+						{% url 'remove_charity_url' item.id  as remove_url %}
+						{% include 'admin/remove_edit_buttons.html' %}
 					</div>
-					<div class="col">
-						{{item.text}}
-					</div>
-				</div>
-				{% url 'remove_charity_url' item.id  as remove_url %}
-				{% include 'admin/remove_edit_buttons.html' %}
+				{% endfor %}
 			</div>
-		{% endfor %}
+		</div>
 	</div>
 {% endblock %}
