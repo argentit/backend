@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.decorators import *
-from alfa.models import  Doctor, Practice, Education, Certificate, Doctors_type, Service
+from alfa.models import  Doctor, Practice, Education, Certificate, Doctors_type, Service, Technology
 from alfa.forms import DoctorForm, TextForm, ImageForm, SelectServiceForm, SelectTechnologyForm
 from datetime import date
 
@@ -465,7 +465,10 @@ def new_service_for_doctor_page(request, doctor_id):
 		return HttpResponseRedirect(reverse('doctors_url'))
 	context['doctor_id'] = doctor.id
 	context['form'] = SelectServiceForm(instance=doctor)
-	print(SelectServiceForm().fields['services'])
+	if Service.objects.count() == 0:
+		context['error'] = True
+		context['error_message'] = 'Список услуг пуст.'
+		return render(request, template_name, context)
 	# context['form'].fields['services'].required = False
 	if request.method == 'POST':
 		form = SelectServiceForm(request.POST)
@@ -491,6 +494,10 @@ def new_technology_for_doctor_page(request, doctor_id):
 		return HttpResponseRedirect(reverse('doctors_url'))
 	context['doctor_id'] = doctor.id
 	context['form'] = SelectTechnologyForm(instance=doctor)
+	if Technology.objects.count() == 0:
+		context['error'] = True
+		context['error_message'] = 'Список технологий пуст.'
+		return render(request, template_name, context)
 	if request.method == 'POST':
 		form = SelectTechnologyForm(request.POST)
 		if form.is_valid():
