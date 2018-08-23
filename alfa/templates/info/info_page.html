@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Стоматология Аргентит</title>
+	Правовая информация
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,6 @@
 			<li class="list-group-item border border-0 p-0">
 				<a href="{{document.file.url}}" target="_blank" class="text-mgrey">{{document.name}}</a>
 				{% url 'remove_info_url' document.id  as remove_url %}
-				{% url 'edit_info_url' document.id  as edit_url %}
 				{% include 'admin/remove_edit_buttons.html' %}
 			</li>
 		{% endfor %}

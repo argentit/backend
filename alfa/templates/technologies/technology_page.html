@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Стоматология Аргентит</title>
+	{{technology.name}}
 {% endblock %}
 
 {% block content %}
-	<h1 class="text-mgrey">
+	<h1 class="{{h1_class}}">
 		{{technology.name}}
 		<a href="{% url 'edit_technology_url' technology.id %}">
 			<button type="button" name="button" class="btn btn-primary rounded-0 ml-5">Изменить</button>

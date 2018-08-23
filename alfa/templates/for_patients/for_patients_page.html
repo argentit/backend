@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Стоматология Аргентит</title>
+	Пациентам
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,9 @@
 	<ul class="list-group list-group-flush">
 		{% for document in documents %}
 			<li class="list-group-item border border-0">
-				<a href="{{document.file.url}}" target="_blank" class="text-mgrey">{{document.name}}</a>
+				<a href="{{document.file.url}}" target="_blank" style="font-size: 25px;" class="text-mgrey">{{document.name}}</a>
+				{% url 'remove_info_url' document.id  as remove_url %}
+				{% include 'admin/remove_edit_buttons.html' %}
 			</li>
 		{% endfor %}
 	</ul>

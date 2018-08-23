@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Стоматология Аргентит</title>
+	Новости
 {% endblock %}
 
 {% block content %}
-	<h1 class="text-mgrey">Новости</h1>
+	<h1 class="{{h1_class}}">Новости</h1>
 	{% with url_name='new_news_url' item='новость'%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}

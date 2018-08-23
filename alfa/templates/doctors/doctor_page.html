@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Стоматология Аргентит</title>
+	{{doctor}}
 {% endblock %}
 
 {% block content %}
@@ -18,7 +18,7 @@
 		</div>
 		<div class="col ml-3">
 			<div class="row">
-				<h1 class="h1">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h1>
+				<h1 class="{{h1_class}}">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</h1>
 			</div>
 			<div class="row">
 				<ul class="list-group list-group-flush col-8">

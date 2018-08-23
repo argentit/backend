@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Стоматология Аргентит</title>
+	Благотворительность
 {% endblock %}
 
 {% block content %}
-	<h1>Благотворительность</h1>
+	<h1 class="{{h1_class}}">Благотворительность</h1>
 	{% with url_name='new_charity_url' item=' '%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}

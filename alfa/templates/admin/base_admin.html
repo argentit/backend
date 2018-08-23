@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	{% block title %}
-	<title>Стоматология Аргентит</title>
-	{% endblock %}
+	<title>
+		Стоматология Аргентит |
+		{% block title %}
+			Стоматология Аргентит
+		{% endblock %}
+	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	{% load staticfiles %}
@@ -14,6 +17,8 @@
 	<link rel="icon" type="image/png" href="{% static 'images/favicon.png'%}">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	{% block head %}
+	{% endblock %}
 </head>
 <body style="min-width:1024px;">
 
