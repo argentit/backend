@@ -143,10 +143,24 @@ class JobForm(forms.Form):
 	name = forms.CharField(required=True)
 	description = forms.CharField(required=True)
 
-class ServiceForm(forms.Form):
-	name = forms.CharField()
-	description = forms.CharField()
-	price = forms.CharField()
+class ServiceForm(forms.ModelForm):
+	class Meta:
+		model = Service
+		fields = ['name', 'price', 'text', ]
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'price': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
+
+        }
+		labels = {
+			'name': 'Название:',
+			'text': 'Текст',
+			'price': 'Цена:',
+		}
+	# name = forms.CharField()
+	# description = forms.CharField()
+	# price = forms.CharField()
 
 class TechnologyForm(forms.Form):
 	name = forms.CharField(required=True)

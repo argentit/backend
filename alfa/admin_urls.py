@@ -42,6 +42,7 @@ urlpatterns = [
 				url(r'^technologies/edit/(?P<id>\d+)$', technologies.edit_technology_page, name = 'edit_technology_url'),
 				url(r'^service/new/$', service.new_service_page, name = 'new_service_url'),
 				url(r'^service/remove/(?P<id>\d+)$', service.remove_service_page, name = 'remove_service_url'),
+				url(r'^service/edit/(?P<id>\d+)$', service.new_service_page, name = 'edit_service_url'),
 				url(r'^news/new/$', news.new_news_page, name = 'new_news_url'),
 				url(r'^news/edit/(?P<id>\d+)$', news.edit_news_page, name = 'edit_news_url'),
 				url(r'^news/remove/(?P<id>\d+)$', news.remove_news_page, name = 'remove_news_url'),

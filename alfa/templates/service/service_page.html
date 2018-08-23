@@ -6,7 +6,7 @@
 
 {% block content %}
 	<h1 class="{{h1_class}}">{{service.name}}</h1>
-	<p>{{service.description}}</p>
+	<p>{{service.text}}</p>
 	<h2>Стоимость: {{service.price}}</h2>
 	{% if service.doctors.count != 0 %}
 		<h4>Доктора:</h4>

@@ -59,24 +59,30 @@ def remove_technology_page(request, id):
 		context['text'] = 'Действительно удалить технологию \"' + technology.name + '\"' + '?'
 		return render(request, 'admin/really_remove_page.html', context)
 
+
 @has_premission()
 def edit_technology_page(request, id):
 	context = {}
 	template_name = 'technologies/new_technology_page.html'
 	try:
-		technology = Technology.objects.get(id=id)
-	except Technology.DoesNotExist:
-		return HttpResponseRedirect(reverse('technologies_url'))
-	context['form'] = EditTechnologyForm(instance=technology)
-	if request.method == 'GET':
-		return render(request, template_name, context)
-	if request.method == 'POST':
-		form = EditTechnologyForm(request.POST, request.FILES, instance=technology)
-		if form.is_valid():
-			technology = form.save()
-			return HttpResponseRedirect(reverse('edit_technology_url', kwargs={'id': technology.id}))
-		else:
-			context['error'] = True
-			context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
+		try:
+			technology = Technology.objects.get(id=id)
+		except Technology.DoesNotExist:
+			return HttpResponseRedirect(reverse('technologies_url'))
+		context['form'] = EditTechnologyForm(instance=technology)
+		if request.method == 'GET':
 			return render(request, template_name, context)
-	return HttpResponseRedirect(reverse('technologies_url'))
+		if request.method == 'POST':
+			form = EditTechnologyForm(request.POST, request.FILES, instance=technology)
+			if form.is_valid():
+				technology = form.save()
+				return HttpResponseRedirect(reverse('edit_technology_url', kwargs={'id': technology.id}))
+			else:
+				context['error'] = True
+				context['error_message'] = 'Неверно заполнена форма.\n' + str(form.errors)
+				return render(request, template_name, context)
+		return HttpResponseRedirect(reverse('technologies_url'))
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = 'Произошла ошибка.\n' + str(e.message)
+		return render(request, template_name, context)
