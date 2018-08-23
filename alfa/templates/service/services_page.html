@@ -11,7 +11,7 @@
 	{% endwith %}
 	<div class="row">
 		{% for service in services %}
-			<div class="col-6 my-4 border-0">
+			<div class="col-sm-6 my-4 border-0">
 				<a class="text-mgrey h2 no-underline" href="{% url 'service_url' service.id %}">{{service.name}}
 					<div class="row">
 						<div class="col-6">
