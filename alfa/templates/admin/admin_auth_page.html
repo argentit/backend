@@ -14,7 +14,7 @@
 						{{error_message}}
 					</div>
 				{% endif %}
-				
+
 				{% if request.user.is_authenticated %}
 					<div class="alert alert-info rounded-0">
 						Вы уже авторизированны.
@@ -29,7 +29,7 @@
 						</div>
 						<div class="form-group">
 							<label for="password" class="">Пароль:</label>
-							<input type="text" name="password" class="form-control rounded-0"/>
+							<input type="password" name="password" class="form-control rounded-0"/>
 						</div>
 						<button type="submit" class="btn btn-dred rounded-0">Войти</button>
 					</form>

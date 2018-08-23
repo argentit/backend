@@ -13,7 +13,7 @@
 	</h1>
 	<div class="row">
 		<div class="col">
-			<img src="{{technology.img.url}}" style="width:500px" class="float-left mr-2"/>
+			<img src="{{technology.img.url}}" style="width:500px" class="float-left mr-5 mb-3"/>
 			<p class="text-mgrey h4">
 				{{technology.text}}
 			</p>
@@ -22,11 +22,13 @@
 	<br />
 	{% if technology.doctors.count != 0 %}
 		<h2>Врачи, которые работают с этой технологией:</h2>
-		{% for doctor in technology.doctors.all %}
-			<div class="col-3">
-				<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
-				<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
-			</div>
-		{% endfor %}
+		<div class="row">
+			{% for doctor in technology.doctors.all %}
+				<div class="col-3">
+					<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
+					<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
+				</div>
+			{% endfor %}
+		</div>
 	{% endif %}
 {% endblock %}
