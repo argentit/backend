@@ -26,10 +26,12 @@
 		<h2>Врачи, которые работают с этой технологией:</h2>
 		<div class="row">
 			{% for doctor in technology.doctors.all %}
-				<div class="col-3">
-					<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
-					<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
-				</div>
+				{% if doctor.is_active %}
+					<div class="col-3">
+						<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
+						<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
+					</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 	{% endif %}
