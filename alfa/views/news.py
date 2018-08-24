@@ -30,13 +30,14 @@ def new_news_page(request, id=None):
 		else:
 			context['error'] = True
 			context['form'] = NewsForm(instance=article)
+			context['form'].required_css_class = 'container p-0  rounded-0'
+			context['form']['title'].label_classes = ('container-fluid pl-0')
 			context['error_message'] = 'Неверно заполнена форма.<br>' + str(form.errors)
 			return render(request, template_name, context)
 	else:
 		context['form'] = NewsForm(instance=article)
 		context['form'].required_css_class = 'container p-0  rounded-0'
 		context['form']['title'].label_classes = ('container-fluid pl-0')
-		form_items = []
 		return render(request, 'news/new_news_page.html', context)
 
 @has_premission()
