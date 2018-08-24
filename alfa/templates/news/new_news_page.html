@@ -3,7 +3,7 @@
 {% block content %}
 	<h1 class="container pl-0">Добавить статью</h1>
 	{% if error %}
-		<div class="alert alert-danger rounded-0 container">{{error_message}}</div>
+		<div class="alert alert-danger rounded-0 container">{{error_message|safe}}</div>
 	{% endif %}
 
 	<form method="POST" action="{{request.path}}" class="p-0">

@@ -9,10 +9,6 @@
 
 {% block content %}
 	<h1 class="{{h1_class}}">Стоматология Аргентит</h1>
-	{% with url_name='new_home_post_url' item='пост'%}
-		{% include 'admin/add_button.html' %}
-	{% endwith %}
-
 	{% if not active_element %}
 		<p class="h5">Ни одного изображения ещё не добавлено</p>
 	{% endif %}
@@ -79,6 +75,9 @@
 			</div>
 		</div>
 	{% endif %}
+	{% with url_name='new_home_post_url' item='пост'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
 	<ul class="list-group list-group-flush">
 		{% for post in all_posts %}
 			<li class="list-group-item" id='{{post.id}}'>

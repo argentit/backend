@@ -12,27 +12,37 @@ def news_page(request):
 	return render(request, 'news/news_page.html', context)
 
 @has_premission()
-def new_news_page(request):
+def new_news_page(request, id=None):
 	context = {}
+	template_name = 'news/new_news_page.html'
+	try:
+		if id:
+			article = Article.objects.get(id=id)
+		else:
+			article = None
+	except Article.DoesNotExist:
+		return HttpResponseRedirect(reverse('news_url'))
 	if request.method == 'POST':
-		form = NewsForm(request.POST)
+		form = NewsForm(request.POST, instance=article)
 		if form.is_valid():
-			item = form.save(commit=False)
-			item.save()
+			form.save()
 			return HttpResponseRedirect(reverse('news_url'))
 		else:
 			context['error'] = True
-			context['error_message'] = 'Неверно заполнена форма.'
-	context['form'] = NewsForm()
-	context['form'].required_css_class = 'container p-0  rounded-0'
-	context['form']['title'].label_classes = ('container-fluid pl-0')
-	form_items = []
-	return render(request, 'news/new_news_page.html', context)
+			context['form'] = NewsForm(instance=article)
+			context['error_message'] = 'Неверно заполнена форма.<br>' + str(form.errors)
+			return render(request, template_name, context)
+	else:
+		context['form'] = NewsForm(instance=article)
+		context['form'].required_css_class = 'container p-0  rounded-0'
+		context['form']['title'].label_classes = ('container-fluid pl-0')
+		form_items = []
+		return render(request, 'news/new_news_page.html', context)
 
 @has_premission()
 def edit_news_page(request, id):
 	context = {}
-	
+
 	return HttpResponse('ok')
 
 @has_premission()

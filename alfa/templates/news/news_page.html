@@ -13,12 +13,12 @@
 	{% for article in all %}
 		<div class="">
 			<h2>{{article.title}}</h2>
-			<small class="h6">{{article.date}}</small>
-
+			<small class="h6">{{article.datetime|date:'d.m.Y'}}</small>
 			<div class="p mt-2">
 				{{article.content|safe}}
 			</div>
 			{% url 'remove_news_url' article.id  as remove_url %}
+			{% url 'edit_news_url' article.id  as edit_url %}
 			{% include 'admin/remove_edit_buttons.html' %}
 		</div>
 	{% endfor %}
