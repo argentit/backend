@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.models import HomePost, CarouselElement
-from alfa.forms import HomePostForm, CarouselElementForm
+from alfa.forms import HomePostForm, NewCarouselElementForm, EditCarouselElementForm
 from alfa.decorators import *
 
 def home_page(request):
@@ -57,27 +57,52 @@ def remove_home_post_page(request, id):
 def new_carousel_element_page(request):
 	context = {}
 	template_name = 'home/new_carousel_element_page.html'
-	if request.method == 'POST':
-		form = CarouselElementForm(request.POST, request.FILES)
-		if form.is_valid():
-			element = CarouselElement()
-			element.title = form.cleaned_data['title']
-			element.text = form.cleaned_data['text']
-			element.image = form.cleaned_data['image']
-			element.post = form.cleaned_data['post']
-			element.save()
-			element.number = str(element.id)
-			element.save()
-			return HttpResponseRedirect(reverse('home_url'))
+	try:
+		if request.method == 'POST':
+			form = NewCarouselElementForm(request.POST, request.FILES)
+			if form.is_valid():
+				element = form.save()
+				return HttpResponseRedirect(reverse('edit_carousel_element_url', kwargs={'id': element.id}))
+			else:
+				context['error'] = True
+				context['form'] = NewCarouselElementForm()
+				context['error_message'] = 'Неверно заполнена форма.'
+				return render(request, template_name, context)
 		else:
-			context['error'] = True
-			context['form'] = CarouselElementForm()
-			context['form'].fields['post'].required = False
-			context['error_message'] = 'Неверно заполнена форма.'
+			context['form'] = NewCarouselElementForm()
 			return render(request, template_name, context)
-	else:
-		context['form'] = CarouselElementForm()
-		context['form'].fields['post'].required = False
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
+		context['form'] = NewCarouselElementForm()
+		return render(request, template_name, context)
+
+@has_premission()
+def edit_carousel_element_page(request, id):
+	context = {}
+	template_name = 'home/new_carousel_element_page.html'
+	try:
+		element = CarouselElement.objects.get(id=id)
+	except CarouselElement.DoesNotExist:
+		return HttpResponseRedirect(reverse('home_url'))
+	try:
+		if request.method == 'POST':
+			form = EditCarouselElementForm(request.POST, request.FILES, instance=element)
+			if form.is_valid():
+				form.save()
+				return HttpResponseRedirect(reverse('home_url'))
+			else:
+				context['error'] = True
+				context['error_message'] = 'Произошла ошибка.<br>' + str(form.error)
+				context['form'] = form
+				return render(request, template_name, context)
+		else:
+			context['form'] = EditCarouselElementForm(instance=element)
+			return render(request, template_name, context)
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
+		context['form'] = EditCarouselElementForm(instance=element)
 		return render(request, template_name, context)
 
 @has_premission()

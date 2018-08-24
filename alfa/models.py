@@ -16,9 +16,10 @@ class HomePost(models.Model):
 		return self.title
 
 class CarouselElement(models.Model):
-	title = models.CharField(max_length = 500, default=None, null=True)
-	text = models.CharField(max_length = 5000, default=None, null=True)
-	image = models.ImageField(upload_to='img/home_page/', default='img/home_page/default.jpg')
+	title = models.CharField(max_length = 500, default='', null=True, blank=True)
+	text = models.CharField(max_length = 5000, default='', null=True, blank=True)
+	image = models.ImageField(upload_to='img/home_page/', default='img/home_page/default.jpg', blank=False)
+	cropping = ImageRatioField('image', '800x200', hide_image_field=True)
 	post = models.ForeignKey(HomePost, on_delete=models.CASCADE, blank=True, null=True, default=None)
 	datetime = models.DateTimeField(auto_now_add=True, blank=True)
 	number = models.CharField(max_length=10, default='0')
@@ -46,7 +47,7 @@ class SubService(models.Model):
 class Technology(models.Model):
 	#image = ImageCropField(blank=False, upload_to='img/technologies/')
 	#cropping_free = ImageRatioField('image', '300x230',free_crop=True, size_warning=True)
-	cropping = ImageRatioField('img', '500x500', hide_image_field=True, size_warning=True)
+	cropping = ImageRatioField('img', '500x500', hide_image_field=True)
 	name = models.CharField(max_length = 500, default = '')
 	slug = models.SlugField(blank=True, max_length = 20, default = '')
 	img = models.ImageField(upload_to='img/technologies/', default='img/technologies/default.jpg')

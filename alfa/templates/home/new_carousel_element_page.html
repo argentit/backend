@@ -3,24 +3,18 @@
 {% block title %}
 	Добавить изображение на главную страницу
 {% endblock %}
+{% block head %}
+	{{form.media}}
+{% endblock %}
 
 {% block content %}
 	<div class="container">
 		<h1>Добавить изображение на главную страницу</h1>
 		{% if error %}
-			<div class="alert alert-danger rounded-0 container">{{error_message}}</div>
+			<div class="alert alert-danger rounded-0 container">{{error_message|safe}}</div>
 		{% endif %}
 		<form action="{{request.path}}" method="post" enctype="multipart/form-data">{% csrf_token %}
-			{% for field in form %}
-			<div class="form-group row">
-				<div class="col-2">
-					<label class=" pl-0" for="{{ field.name }}">{{ field.label }}</label>
-				</div>
-				<div class="col">
-					{{field}}
-				</div>
-			</div>
-			{% endfor %}
+			{{form.as_p}}
 			<div class="row ">
 				<div class="col-2 pl-0">
 					<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">

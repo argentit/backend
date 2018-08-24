@@ -45,25 +45,39 @@ class HomePostForm(forms.ModelForm):
 			'text': 'Текст:',
 		}
 
-class CarouselElementForm(forms.ModelForm):
-	title = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}), label='Заголовок:')
-	text = forms.CharField(required=False, widget=forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': 4,}), label='Текст:')
+class EditCarouselElementForm(forms.ModelForm):
 	class Meta:
 		model = CarouselElement
-		fields = ['title', 'text', 'post', 'image']
+		fields = ['title', 'text', 'post', 'image', 'cropping']
 		widgets = {
-			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
-			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 5, 'required': ''}),
+			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 4,}),
 			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
+			'image': ImageCropWidget,
 		}
 		labels = {
-			'title': 'Заголовок:',
-			'text': 'Текст:',
+			'title': 'Заголовок (на изображении):',
+			'text': 'Текст (на изображении):',
 			'post': 'Ссылка:',
 			'image': 'Изображение:',
+			'cropping': ''
 		}
-		requireds = {
-			'post': False
+
+class NewCarouselElementForm(forms.ModelForm):
+	class Meta:
+		model = CarouselElement
+		fields = ['title', 'text', 'post', 'image',]
+		widgets = {
+			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 4,}),
+			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
+			'image': forms.widgets.FileInput(attrs={'required':''}),
+		}
+		labels = {
+			'title': 'Заголовок (на изображении):',
+			'text': 'Текст (на изображении):',
+			'post': 'Ссылка:',
+			'image': 'Изображение:',
 		}
 
 class ResultForm(forms.ModelForm):

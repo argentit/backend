@@ -10,6 +10,7 @@ urlpatterns = [
 				url(r'^carousel/(?P<id>\d+)/move/up/$', home.carousel_element_move_up_page, name = 'carousel_element_move_up_url'),
 				url(r'^carousel/(?P<id>\d+)/move/down/$', home.carousel_element_move_down_page, name = 'carousel_element_move_down_url'),
 				url(r'^carousel_element/remove/(?P<id>\d+)$', home.remove_carousel_element_page, name = 'remove_carousel_element_url'),
+				url(r'^carousel_element/edit/(?P<id>\d+)$', home.edit_carousel_element_page, name = 'edit_carousel_element_url'),
 				url(r'^carousel_element/new/$', home.new_carousel_element_page, name = 'new_carousel_element_url'),
 				url(r'^carousel/edit/$', home.edit_carousel_page, name = 'edit_carousel_url'),
 				url(r'^login/$', admin_views.admin_auth_page, name = 'admin_auth_url'),
