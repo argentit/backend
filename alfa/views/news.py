@@ -24,6 +24,7 @@ def new_news_page(request, id=None):
 		return HttpResponseRedirect(reverse('news_url'))
 	if request.method == 'POST':
 		form = NewsForm(request.POST, instance=article)
+		form2 = form
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect(reverse('news_url'))
@@ -38,7 +39,7 @@ def new_news_page(request, id=None):
 		context['form'] = NewsForm(instance=article)
 		context['form'].required_css_class = 'container p-0  rounded-0'
 		context['form']['title'].label_classes = ('container-fluid pl-0')
-		return render(request, 'news/new_news_page.html', context)
+		return render(request, template_name, context)
 
 @has_premission()
 def edit_news_page(request, id):
