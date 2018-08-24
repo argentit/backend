@@ -7,13 +7,6 @@
 	{% endif %}
 
 	<form method="POST" action="{{request.path}}" class="p-0">
-		 <!--{% for field in form %}
-			<div class="form-group container my-2">
-				<label class="" for="{{ field.name }}">{{ field.label }}</label>
-				{{ field }}
-			</div>
-			{{ form.media }}
-		{% endfor %}-->
 		{% csrf_token %}
 		{{ form.media }}
 		{{ form.as_div }}
