@@ -12,7 +12,11 @@
 	{% with url_name='new_home_post_url' item='пост'%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}
-	{% if carousel.count > 0 %}
+
+	{% if not active_element %}
+		<p class="h5">Ни одного изображения ещё не добавлено</p>
+	{% endif %}
+	{% if active_element %}
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
@@ -49,14 +53,16 @@
 					</div>
 				{% endfor %}
 			</div>
-			<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
+			{% if carousel %}
+				<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			{% endif %}
 		</div>
 	{% endif %}
 	{% if request.user.is_authenticated %}
