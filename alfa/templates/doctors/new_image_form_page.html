@@ -7,10 +7,11 @@
 	{% endif %}
 	<form method="POST" action="{{request.path}}" class="container p-0 mt-3" enctype="multipart/form-data">
 		{% csrf_token %}
-			<div class="form-group">
+		{{form.as_p}}
+			<!--<div class="form-group">
 				<label class=" pl-0" for="image">{{label}}:</label>
 				<input type="file" name="image" value="">
-			</div>
+			</div>-->
 		<div class="row ">
 			<div class="col-2 ">
 				<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">

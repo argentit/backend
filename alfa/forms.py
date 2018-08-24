@@ -86,9 +86,9 @@ class ResultForm(forms.ModelForm):
 		fields = ['doctor', 'img_before', 'img_after', 'text']
 		widgets = {
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 4, 'required': ''}),
-			'img_before': forms.widgets.FileInput(attrs={'required':''}),
-			'img_after': forms.widgets.FileInput(attrs={'required':''}),
-			'doctor': forms.widgets.Select(attrs={'class':'form-control col-6'}),
+			'img_before': forms.widgets.FileInput(attrs={'required':'', 'accept': 'image/*'}),
+			'img_after': forms.widgets.FileInput(attrs={'required':'', 'accept': 'image/*'}),
+			'doctor': forms.widgets.Select(attrs={'class':'form-control w-50'}),
 		}
 		labels = {
 			'doctor': 'Доктор:',
@@ -225,7 +225,7 @@ class TextForm(forms.Form):
 	name = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'required': '', 'rows': '4'}))
 
 class ImageForm(forms.Form):
-	image = forms.ImageField(required=True)
+	image = forms.ImageField(required=True, widget=forms.widgets.FileInput(attrs={'accept': 'image/*',}), label='Изображение:')
 
 class DMSForm(forms.ModelForm):
 	class Meta:
