@@ -20,7 +20,7 @@
 		<div class="row">
 			{% for doctor in service.doctors.all %}
 				{% if doctor.is_active %}
-					<div class="col-sm-3">
+					<div class="col-xl-3">
 						<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
 						<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
 					</div>

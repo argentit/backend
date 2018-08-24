@@ -14,8 +14,8 @@
 		{% endif %}
 	</h1>
 	<div class="row">
-		<div class="col">
-			<img src="{{technology.img.url}}" style="width:500px" class="float-left mr-5 mb-3"/>
+		<div class="col ">
+			<img src="{{technology.img.url}}" style="width:100%;max-width:500px;" class="float-left mr-5 mb-3"/>
 			<p class="text-mgrey h4">
 				{{technology.text}}
 			</p>
@@ -27,7 +27,7 @@
 		<div class="row">
 			{% for doctor in technology.doctors.all %}
 				{% if doctor.is_active %}
-					<div class="col-sm-3">
+					<div class="col-xl-3">
 						<a href="{% url 'doctor_url' doctor.id %}"><img src="{{doctor.photo.url}}" alt="{{doctor}}" class="mw-100"></a>
 						<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
 					</div>
