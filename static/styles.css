@@ -9,7 +9,12 @@
  .dropdown:hover .dropdown-menu {display: block;}
  .dropdown:active .dropdown-menu {display: block;}
 
-
+ @media all and (max-width:1228px){
+ 	.for-small-devices{
+ 		font-size: 75% !important;
+ 	}
+ }
+ @media(min-width:800px){html{font-size: 3em}}
 
 
 :root {

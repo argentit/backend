@@ -9,3 +9,9 @@
 .no-underlined-if-hover: hover{
 	text-decoration: none !important;
 }
+
+@media (max-width:1228px){
+	.for-small-devices{
+		font-size: 75% !important;
+	}
+}
