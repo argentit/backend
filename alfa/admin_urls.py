@@ -59,5 +59,10 @@ urlpatterns = [
 				url(r'^jobs/new$', jobs.new_job_page, name = 'new_job_url'),
 				url(r'^jobs/edit/(?P<id>\d+)$', jobs.edit_job_page, name = 'edit_job_url'),
 				url(r'^jobs/remove/(?P<id>\d+)$', jobs.remove_job_page, name = 'remove_job_url'),
+				url(r'^for_patients/dms/new/$', for_patients.new_dms_page, name='new_dms_url'),
+				url(r'^for_patients/dms/edit/(?P<id>\d+)$', for_patients.new_dms_page, name='edit_dms_url'),
+				url(r'^for_patients/dms/remove/(?P<id>\d+)$', for_patients.remove_dms_page, name='remove_dms_url'),
 				url(r'^for_patients/new$', for_patients.new_for_patients_page, name = 'new_for_patients_url'),
+				url(r'^for_patients/edit/(?P<id>\d+)$', for_patients.edit_for_patients_page, name = 'edit_for_patients_url'),
+				url(r'^for_patients/remove/(?P<id>\d+)$', for_patients.remove_for_patients_page, name = 'remove_for_patients_url'),
 				]

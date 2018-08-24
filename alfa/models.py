@@ -120,5 +120,10 @@ class Job(models.Model):
 
 class Document(models.Model):
 	name = models.CharField(max_length=500, default='')
-	type = models.CharField(max_length=500, default='')
+	type = models.CharField(max_length=500, default='', blank=True)
 	file = models.FileField(upload_to='documents/')
+
+class DMS(models.Model):
+	name = models.CharField(max_length=500, default='')
+	url = models.URLField(default = None, null=True, blank=True)
+	image = models.ImageField(upload_to='img/dms/', default=None, null=True, blank=True)

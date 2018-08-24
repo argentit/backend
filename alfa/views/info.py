@@ -15,27 +15,59 @@ def info_page(request):
 @has_premission()
 def new_info_page(request):
 	context = {}
-	form = DocumentForm()
-	if request.method == 'POST':
-		form = DocumentForm(request.POST, request.FILES)
-		if form.is_valid():
-			document = Document()
-			document.name = form.cleaned_data['name']
-			document.file = form.cleaned_data['file']
-			document.type = 'info'
-			document.save()
-			return HttpResponseRedirect(reverse('info_url'))
+	template_name = 'info/new_info_page.html'
+	try:
+		if request.method == 'POST':
+			form = DocumentForm(request.POST, request.FILES)
+			if form.is_valid():
+				document = form.save(commit=False)
+				document.type = 'info'
+				document.save()
+				return HttpResponseRedirect(reverse('info_url'))
+			else:
+				context['error'] = True
+				context['error_message'] = 'Неверно заполнена форма.<br>' + str(form.error)
+				context['form'] = form
+				return render(request, 'info/new_info_page.html', context)
 		else:
-			context['error'] = True
-			context['error_message'] = 'Неверно заполнена форма.'
-			return render(request, 'info/new_info_page.html', context)
-	else:
-		context['form'] = form
-		return render(request, 'info/new_info_page.html', context)
+			context['form'] = DocumentForm()
+			return render(request, template_name, context)
+		return HttpResponseRedirect(reverse('info_url'))
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
+		context['form'] = DocumentForm()
+		return render(request, template_name, context)
+
 
 @has_premission()
 def edit_info_page(request, id):
-	return HttpResponseRedirect(reverse('info_url'))
+	context = {}
+	template_name = 'info/new_info_page.html'
+	try:
+		document = Document.objects.get(id=id)
+	except Document.DoesNotExist:
+		return HttpResponseRedirect(reverse('info_url'))
+	try:
+		if request.method == 'POST':
+			form = DocumentForm(request.POST, request.FILES, instance=document)
+			if form.is_valid():
+				form.save()
+				return HttpResponseRedirect(reverse('info_url'))
+			else:
+				context['error'] = True
+				context['error_message'] = 'Неверно заполнена форма.<br>' + str(form.error)
+				context['form'] = form
+				return render(request, 'info/new_info_page.html', context)
+		else:
+			context['form'] = DocumentForm(instance=document)
+			return render(request, template_name, context)
+		return HttpResponseRedirect(reverse('info_url'))
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
+		context['form'] = DocumentForm(instance=document)
+		return render(request, template_name, context)
 
 @has_premission()
 def remove_info_page(request, id):

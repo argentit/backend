@@ -20,6 +20,7 @@ urlpatterns = [
 				url(r'^job/$', jobs.jobs_page, name='jobs_url'),
 				url(r'^charity/$', charity.charity_page, name='charity_url'),
 				url(r'^for_patients/$', for_patients.for_patients_page, name='for_patients_url'),
+				url(r'^for_patients/dms/$', for_patients.dms_page, name='dms_url'),
 				url(r'^info/$', info.info_page, name='info_url'),
 				#url(r'', RedirectView.as_view(pattern_name='main_url')),
 				]

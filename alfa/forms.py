@@ -149,9 +149,18 @@ class CharityForm(forms.Form):
 	text = forms.CharField(required=True)
 	object_id = forms.IntegerField(required=False)
 
-class DocumentForm(forms.Form):
-	name = forms.CharField(required=True)
-	file = forms.FileField(required=True)
+class DocumentForm(forms.ModelForm):
+	class Meta:
+		model = Document
+		fields = ['name', 'file',]
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0', 'required': ''}),
+			'file': forms.widgets.FileInput(attrs={'required':'', 'accept': '.pdf'}),
+		}
+		labels = {
+			'name': 'Название документа:',
+			'file': 'Документ (pdf):',
+		}
 
 class JobForm(forms.Form):
 	name = forms.CharField(required=True)
@@ -217,3 +226,18 @@ class TextForm(forms.Form):
 
 class ImageForm(forms.Form):
 	image = forms.ImageField(required=True)
+
+class DMSForm(forms.ModelForm):
+	class Meta:
+		model = DMS
+		fields = ['name', 'url', 'image']
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
+			'url': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
+            'image': forms.widgets.FileInput(attrs={'accept': 'image/*',}),
+        }
+		labels = {
+			'name': 'Название:',
+			'url': 'Ссылка:',
+			'image': 'Изображение:',
+		}
