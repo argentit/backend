@@ -43,7 +43,6 @@ def doctor_page(request, id):
 		context['years'] = str(years) + ' года'
 	else:
 		context['years'] = str(years) + ' лет'
-	
 	return render(request, template_name, context)
 
 @has_premission()
