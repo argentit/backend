@@ -19,7 +19,6 @@ def doctor_page(request, id):
 	except Doctor.DoesNotExist:
 		return HttpResponseRedirect(reverse('doctors_url'))
 	context['doctor'] = doctor
-	#num_years = int((date.today() - doctor.exp).days / 365.25)
 	def num_years(begin, end=None):
 		from datetime import datetime
 		def yearsago(years, from_date=None):
@@ -37,9 +36,6 @@ def doctor_page(request, id):
 			return num_years - 1
 		else:
 			return num_years
-	# if doctor.exp > yearsago(num_years, end):
-	# 	context['years'] = num_years - 1
-	# else:
 	years = num_years(doctor.exp)
 	if years % 10 == 1:
 		context['years'] = str(years) + ' год'
@@ -47,6 +43,8 @@ def doctor_page(request, id):
 		context['years'] = str(years) + ' года'
 	else:
 		context['years'] = str(years) + ' лет'
+	if years == 0:
+		context['years'] = None
 	return render(request, template_name, context)
 
 @has_premission()
