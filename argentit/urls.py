@@ -9,7 +9,7 @@ urlpatterns = [
 	url(r'^select2/', include('django_select2.urls')),
 	url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 	path('', include('alfa.urls')),
-	url(r'', RedirectView.as_view(pattern_name='home_url', permanent=False))
+	# url(r'', RedirectView.as_view(pattern_name='home_url', permanent=False))
 ]
 
 #urlpatterns += staticfiles_urlpatterns()

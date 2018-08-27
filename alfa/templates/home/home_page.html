@@ -78,24 +78,28 @@
 	{% with url_name='new_home_post_url' item='пост'%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}
-	<ul class="list-group list-group-flush">
-		{% for post in all_posts %}
-			<li class="list-group-item" id='{{post.id}}'>
-				<div class="row">
-					<div class="col">
-						{% if post.url %}
-							<a href="{{post.url}}" class="text-mgrey"><h3>{{post.title}}</h3></a>
-						{% else %}
-							<h3>{{post.title}}</h3>
-						{% endif %}
-						<p>{{post.text}}</p>
-					</div>
-					<div class="col-2">
-						{% url 'remove_home_post_url' post.id  as remove_url %}
-						{% include 'admin/remove_edit_buttons.html' %}
-					</div>
-				</div>
-			</li>
-		{% endfor %}
-	</ul>
+	<div class="row">
+		<div class="col">
+			<ul class="list-group list-group-flush">
+				{% for post in all_posts %}
+					<li class="list-group-item" id='{{post.id}}'>
+						<div class="row">
+							<div class="col">
+								{% if post.url %}
+									<a href="{{post.url}}" class="text-mgrey"><h3>{{post.title}}</h3></a>
+								{% else %}
+									<h3>{{post.title}}</h3>
+								{% endif %}
+								<p>{{post.text}}</p>
+							</div>
+							<div class="col-2">
+								{% url 'remove_home_post_url' post.id  as remove_url %}
+								{% include 'admin/remove_edit_buttons.html' %}
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
 {% endblock %}
