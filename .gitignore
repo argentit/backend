@@ -9,3 +9,4 @@ alfa/__pycache__/__init__.cpython-36.pyc alfa/__pycache__/admin.cpython-36.pyc a
 __pycache__
 __init__.py
 alfa/migrations
+alfa/templates/prod_tags.html
