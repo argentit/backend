@@ -50,11 +50,13 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="row mt-5">
-				<p class="h4">
-					Опыт работы: {{years}}
-				</p>
-			</div>
+			{% if years != 0 %}
+				<div class="row mt-5">
+					<p class="h4">
+						Опыт работы: {{years}}
+					</p>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 	<br>
