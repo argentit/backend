@@ -242,13 +242,13 @@ class DMSForm(forms.ModelForm):
 			'image': 'Изображение:',
 		}
 
-class TextModelForm(forms.Form):
+class TextModelForm(forms.ModelForm):
 	class Meta:
 		model = Text
-		field = ['text']
+		fields = ['text']
 		widgets = {
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
         }
 		labels = {
-			'text': 'Текст:',
+			'text': '',
 		}

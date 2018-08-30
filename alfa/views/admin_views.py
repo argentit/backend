@@ -41,26 +41,42 @@ def admin_auth_page(request):
 def new_home_item_page(request):
 	return HttpResponseRedirect(reverse('home_url'))
 
-def edit_text_page(request, id=None):
+@has_premission()
+def edit_text_page(request, where, id=None):
 	context = {}
-	template_name = 'admin/adit_text_page.html'
+	context['form'] = TextModelForm()
+	context['back_url'] = reverse(where + '_url')
+	if id is None:
+		context['action'] = reverse('new_text_url', kwargs={'where': where})
+	else:
+		context['action'] = reverse('edit_text_url', kwargs={'id': id, 'where': where})
+	context['header'] = 'Добавить текст в раздел \'ДМС\''
+	template_name = 'admin/edit_text_page.html'
 	try:
 		try:
 			if id is not None:
-				text = Text.objects.get(id=None)
+				text = Text.objects.get(id=id)
 			else:
 				text = None
 		except Text.DoesNotExist:
 			text = None
-		form = TextModelForm(instance=text)
 		if request.method == 'POST':
+			form = TextModelForm(request.POST, instance=text)
+			if form.is_valid():
+				text = form.save(commit=False)
+				text.name = where
+				text.save()
+				return HttpResponseRedirect(reverse(where + '_url'))
+			else:
+				context['error'] = True
+				context['error_message'] = 'Неверно заполнена форма.<br>' + str(form.errors)
+				return render(request, template_name, context)
 			return render(request, template_name, context)
 		else:
-			context['form'] = form
+			context['form'] = TextModelForm(instance=text)
 			return render(request, template_name, context)
 
 	except Exception as e:
 		context['error'] = True
 		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
-		context['form'] = form
 		return render(request, template_name, context)
