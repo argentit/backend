@@ -120,6 +120,11 @@
 				<li class="nav-item">
 	  				<a class="nav-link text-lgrey" href="{% url 'news_url' %}">Новости</a>
 				</li>
+				{% if request.user.is_authenticated %}
+					<li class="nav-item ml-auto">
+		  				<a class="nav-link text-lgrey" href="{% url 'logout_url' %}">Выйти</a>
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 	<div class="container" style="min-height:87.5vh">
@@ -143,7 +148,7 @@
     				<a class="nav-link text-lgrey" href="{% url 'charity_url' %}">Благотворительность</a>
   				</li>
 			</ul>
-			
+
 		</div>
   	</footer>
 </body>

@@ -17,26 +17,33 @@ def logout_page(request):
 
 def admin_auth_page(request):
 	context = {}
-	if request.method != 'POST':
-		return render(request, 'admin/admin_auth_page.html', context)
-	else:
-		form = AuthForm(request.POST)
-		if form.is_valid():
-			user = authenticate(request, username=form.cleaned_data['login'], password=form.cleaned_data['password'])
-			if user is None:
-				context['error'] = True
-				context['error_message'] = 'Неверный логин и/или пароль.'
-				print(context['error_message'])
-				return render(request, 'admin/admin_auth_page.html', context)
-			else:
-				login(request, user)
-				context['success'] = True
-				context['success_message'] = 'Авторизация прошла успешно.'
-				return render(request, 'admin/admin_auth_page.html', context)
-		else:
-			context['error'] = True
-			context['error_message'] = 'Неверно заполнена форма.'
+	try:
+		if request.user.is_authenticated:
+			return HttpResponseRedirect(reverse('home_url'))
+		if request.method != 'POST':
 			return render(request, 'admin/admin_auth_page.html', context)
+		else:
+			form = AuthForm(request.POST)
+			if form.is_valid():
+				user = authenticate(request, username=form.cleaned_data['login'], password=form.cleaned_data['password'])
+				if user is None:
+					context['error'] = True
+					context['error_message'] = 'Неверный логин и/или пароль.'
+					print(context['error_message'])
+					return render(request, 'admin/admin_auth_page.html', context)
+				else:
+					login(request, user)
+					return HttpResponseRedirect(reverse('home_url'))
+			else:
+				context['error'] = True
+				context['error_message'] = 'Неверно заполнена форма.'
+				return render(request, 'admin/admin_auth_page.html', context)
+	except Exception as a:
+		context['error'] = True
+		context['form'] = AuthForm()
+		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
+		return render(request, template_name, context)
+
 
 def new_home_item_page(request):
 	return HttpResponseRedirect(reverse('home_url'))

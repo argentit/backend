@@ -54,6 +54,11 @@
 				<li class="nav-item">
 	  				<a class="nav-link text-lgrey" href="{% url 'news_url' %}">Новости</a>
 				</li>
+				{% if request.user.is_authenticated %}
+					<li class="nav-item ml-auto">
+		  				<a class="nav-link text-lgrey" href="{% url 'logout_url' %}">Выйти</a>
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 	<div class="container-fluid p-0" style="min-height:87.5vh">

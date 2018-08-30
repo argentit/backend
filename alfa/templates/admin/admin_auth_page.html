@@ -11,7 +11,7 @@
 			<div class="col-6">
 				{% if error %}
 					<div class="alert alert-danger rounded-0">
-						{{error_message}}
+						{{error_message|safe}}
 					</div>
 				{% endif %}
 
