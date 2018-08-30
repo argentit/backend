@@ -34,10 +34,33 @@ def admin_auth_page(request):
 				context['success_message'] = 'Авторизация прошла успешно.'
 				return render(request, 'admin/admin_auth_page.html', context)
 		else:
-			print(form.errors)
 			context['error'] = True
 			context['error_message'] = 'Неверно заполнена форма.'
 			return render(request, 'admin/admin_auth_page.html', context)
 
 def new_home_item_page(request):
 	return HttpResponseRedirect(reverse('home_url'))
+
+def edit_text_page(request, id=None):
+	context = {}
+	template_name = 'admin/adit_text_page.html'
+	try:
+		try:
+			if id is not None:
+				text = Text.objects.get(id=None)
+			else:
+				text = None
+		except Text.DoesNotExist:
+			text = None
+		form = TextModelForm(instance=text)
+		if request.method == 'POST':
+			return render(request, template_name, context)
+		else:
+			context['form'] = form
+			return render(request, template_name, context)
+
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
+		context['form'] = form
+		return render(request, template_name, context)

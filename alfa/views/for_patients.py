@@ -91,9 +91,8 @@ def dms_page(request):
 		text = Text.objects.get(name='dms')
 	except Text.DoesNotExist:
 		text = None
-	context['text'] = text
-	return render(request, template_name, context)
 	try:
+		context['text'] = text
 		return render(request, template_name, context)
 	except Exception as e:
 		context['error'] = True

@@ -7,7 +7,14 @@
 {% block content %}
 	<h1 class="{{h1_class}}">ДМС</h1>
 	{% if text %}
-		<p>{{text}}</p>
+		<p>
+			{{text}}
+			{% if request.user.is_authenticated %}
+				<a href="{% url 'new_text_url' %}">
+					<button type="button" name="button" class="btn btn-primary rounded-0">Изменить</button>
+				</a>
+			{% endif %}
+		</p>
 	{% endif %}
 	{% with url_name='new_dms_url' item='дмс'%}
 		{% include 'admin/add_button.html' %}

@@ -65,4 +65,6 @@ urlpatterns = [
 				url(r'^for_patients/new$', for_patients.new_for_patients_page, name = 'new_for_patients_url'),
 				url(r'^for_patients/edit/(?P<id>\d+)$', for_patients.edit_for_patients_page, name = 'edit_for_patients_url'),
 				url(r'^for_patients/remove/(?P<id>\d+)$', for_patients.remove_for_patients_page, name = 'remove_for_patients_url'),
+				url(r'^text/edit/(?P<id>\d+)$', admin_views.edit_text_page, name = 'edit_text_url'),
+				url(r'^text/new/$', admin_views.edit_text_page, name = 'new_text_url'),
 				]
