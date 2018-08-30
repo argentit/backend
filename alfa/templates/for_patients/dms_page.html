@@ -6,6 +6,9 @@
 
 {% block content %}
 	<h1 class="{{h1_class}}">ДМС</h1>
+	{% if text %}
+		<p>{{text}}</p>
+	{% endif %}
 	{% with url_name='new_dms_url' item='дмс'%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}

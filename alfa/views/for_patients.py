@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from alfa.models import Document, DMS
-from alfa.forms import DocumentForm, DMSForm
+from alfa.models import Document, DMS, Text
+from alfa.forms import DocumentForm, DMSForm, TextModelForm
 from alfa.decorators import *
 
 def for_patients_page(request):
@@ -85,9 +85,20 @@ def remove_for_patients_page(request, id):
 
 def dms_page(request):
 	context = {}
-	context['all_dms'] = DMS.objects.all()
 	template_name = 'for_patients/dms_page.html'
+	context['all_dms'] = DMS.objects.all()
+	try:
+		text = Text.objects.get(name='dms')
+	except Text.DoesNotExist:
+		text = None
+	context['text'] = text
 	return render(request, template_name, context)
+	try:
+		return render(request, template_name, context)
+	except Exception as e:
+		context['error'] = True
+		context['error_message'] = str(e)
+		return render(request, template_name, context)
 
 @has_premission()
 def new_dms_page(request, id=None):

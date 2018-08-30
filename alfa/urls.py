@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.conf.urls import include
 from django.views.generic import RedirectView
 
-from alfa.views import views, jobs, news, charity, for_patients, info, service, doctors, technologies, comments, results, home
+from alfa.views import views, jobs, news, charity, for_patients, info, service, doctors, technologies, comments, results, home, views
 
 urlpatterns = [
 				url(r'^admin/', include('alfa.admin_urls')),
@@ -22,5 +22,5 @@ urlpatterns = [
 				url(r'^for_patients/$', for_patients.for_patients_page, name='for_patients_url'),
 				url(r'^for_patients/dms/$', for_patients.dms_page, name='dms_url'),
 				url(r'^info/$', info.info_page, name='info_url'),
-				#url(r'', RedirectView.as_view(pattern_name='main_url')),
+				url(r'robots.txt', views.robots_txt, name='robots_txt_url'),
 				]

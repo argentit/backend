@@ -241,3 +241,14 @@ class DMSForm(forms.ModelForm):
 			'url': 'Ссылка:',
 			'image': 'Изображение:',
 		}
+
+class TextModelForm(forms.Form):
+	class Meta:
+		model = Text
+		field = ['text']
+		widgets = {
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
+        }
+		labels = {
+			'text': 'Текст:',
+		}

@@ -127,3 +127,9 @@ class DMS(models.Model):
 	name = models.CharField(max_length=500, default='')
 	url = models.URLField(default = None, null=True, blank=True)
 	image = models.ImageField(upload_to='img/dms/', default=None, null=True, blank=True)
+
+class Text(models.Model):
+	text = models.TextField(default='')
+	name = models.CharField(max_length=500, default='')
+	def __str__(self):
+		return self.text
