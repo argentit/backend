@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}
+	О нас
+{% endblock %}
+{% block head %}
+	{% load cropping thumbnail %}
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">О нас</h1>
+	{% if not active_element %}
+		<p class="h5">Ни одного изображения ещё не добавлено</p>
+	{% endif %}
+	{% if active_element %}
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<a {% if active_element.post %}href="#{{active_element.post.id}}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail active_element 'cropping' %}" alt="{{active_element.title}}" style="max-width:100%; max-height:100%;">
+					</a>
+					<div class="carousel-caption d-none d-md-block">
+						{% if active_element.title %}
+							<a href="#{{active_element.post.id}}" class="text-mgrey no-underline">
+								<h5 class="h2">{{active_element.title}}</h5>
+							</a>
+						{% endif %}
+						{% if active_element.text %}
+							<a href="#{{active_element.post.id}}" class="text-mgrey no-underline">
+								<p>{{active_element.text}}</p>
+							</a>
+						{% endif %}
+					</div>
+				</div>
+				{% for item in carousel %}
+					<div class="carousel-item">
+						<a {% if item.post %}href="#{{item.post.id}}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail item 'cropping' %}" alt="{{item.title}}" style="max-width:100%; max-height:100%;"></a>
+						<div class="carousel-caption d-none d-md-block">
+							{% if item.title %}
+								<a href="#{{item.post.id}}" class=" text-mgrey no-underline">
+									<h5 class="h2">{{item.title}}</h5>
+								</a>
+							{% endif %}
+							{% if item.text %}
+								<a href="#{{item.post.id}}" class="text-mgrey no-underline">
+									<p>{{item.text}}</p>
+								</a>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			{% if carousel %}
+				<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			{% endif %}
+		</div>
+	{% endif %}
+	{% if request.user.is_authenticated %}
+		<div class="row">
+			<div class="col">
+				{% with url_name='about_new_carousel_element_url' item='изображение' %}
+					{% include 'admin/add_button.html' %}
+				{% endwith %}
+			</div>
+			<div class="col">
+				<a href="{% url 'about_edit_carousel_url' %}" class="no-underline">
+						<button class="btn btn-primary btn-block my-3 rounded-0">Изменить порядок / удалить</button>
+				</a>
+			</div>
+		</div>
+	{% endif %}
+	{% if text %}
+		<p class="mt-2">
+			{{text}}
+			{% if request.user.is_authenticated %}
+				<a href="{% url 'edit_text_url' 'about' text.id %}">
+					<button type="button" name="button" class="btn btn-primary rounded-0">Изменить</button>
+				</a>
+			{% endif %}
+		</p>
+	{% else %}
+		{% if request.user.is_authenticated %}
+			<a href="{% url 'new_text_url' 'about' %}">
+				<button type="button" name="button" class="btn btn-primary rounded-0 mt-2">Добавить текст</button>
+			</a>
+		{% endif %}
+	{% endif %}
+{% endblock %}

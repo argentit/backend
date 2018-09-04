@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+	Добавить изображение на главную страницу
+{% endblock %}
+{% block head %}
+	{{form.media}}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h1>Добавить изображение на главную страницу</h1>
+		{% if error %}
+			<div class="alert alert-danger rounded-0 container">{{error_message|safe}}</div>
+		{% endif %}
+		<form action="{{request.path}}" method="post" enctype="multipart/form-data">{% csrf_token %}
+			{{form.as_p}}
+			<div class="row ">
+				<div class="col-2 pl-0">
+					<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">
+				</div>
+				<div class="col-2">
+					<a href="{% url 'about_url' %}">
+						<div class="btn btn-danger container-fluid rounded-0">Отменить</div>
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}

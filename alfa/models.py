@@ -23,6 +23,7 @@ class CarouselElement(models.Model):
 	post = models.ForeignKey(HomePost, on_delete=models.CASCADE, blank=True, null=True, default=None)
 	datetime = models.DateTimeField(auto_now_add=True, blank=True)
 	number = models.CharField(max_length=10, default='0')
+	location = models.CharField(max_length=50, default='home')
 	class Meta:
 		ordering = ['number']
 
@@ -133,3 +134,9 @@ class Text(models.Model):
 	name = models.CharField(max_length=500, default='')
 	def __str__(self):
 		return self.text
+
+class Portal(models.Model):
+	name = models.CharField(max_length=500, default='')
+	url = models.URLField(default = None, null=True, blank=True)
+	image = models.ImageField(upload_to='img/comments/', default='img/comments/default.jpg', blank=True)
+	cropping = ImageRatioField('image', '600x200', hide_image_field=True)

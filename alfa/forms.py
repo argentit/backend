@@ -252,3 +252,33 @@ class TextModelForm(forms.ModelForm):
 		labels = {
 			'text': '',
 		}
+
+class NewPortalForm(forms.ModelForm):
+	class Meta:
+		model = Portal
+		fields = ['name', 'url', 'image']
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'url': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+        }
+		labels = {
+			'name': 'Название:',
+			'url': 'Ссылка:',
+			'image': 'Изображение:',
+		}
+
+class EditPortalForm(forms.ModelForm):
+	class Meta:
+		model = Portal
+		fields = ['name', 'url', 'image', 'cropping']
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'url': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'image': ImageCropWidget,
+        }
+		labels = {
+			'name': 'Название:',
+			'url': 'Ссылка:',
+			'image': 'Изображение:',
+			'cropping': ''
+		}

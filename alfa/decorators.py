@@ -1,4 +1,6 @@
 from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.http import Http404
 
 def has_premission():
 	def has(f):
@@ -6,6 +8,6 @@ def has_premission():
 			if request.user.is_superuser:
 				return f(request, *args, **kwargs)
 			else:
-				return HttpResponseRedirect(reverse('main_url'))
+				raise Http404("Page not found")
 		return func
 	return has

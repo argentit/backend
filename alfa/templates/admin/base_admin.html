@@ -23,7 +23,7 @@
 <body style="min-width:430px;">
 
 		<nav class="navbar navbar-expand-sm bg-dred navbar-dark sticky-top">
-			<ul class="navbar-nav text-center">
+			<ul class="navbar-nav text-center w-100">
 				<li class="nav-item">
 	 				<a class="nav-link text-lgrey mb-0" href="{% url 'home_url' %}">Главная</a>
    				</li>
@@ -53,6 +53,9 @@
 				</li>
 				<li class="nav-item">
 	  				<a class="nav-link text-lgrey" href="{% url 'news_url' %}">Новости</a>
+				</li>
+				<li class="nav-item">
+	  				<a class="nav-link text-lgrey" href="{% url 'about_url' %}">О нас</a>
 				</li>
 				{% if request.user.is_authenticated %}
 					<li class="nav-item ml-auto">

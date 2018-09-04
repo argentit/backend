@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf.urls import url
 from django.conf.urls import include
 
-from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home
+from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home, comments, about
 
 urlpatterns = [
 				url(r'^home_post/new/$', home.new_home_page, name = 'new_home_post_url'),
@@ -13,6 +13,14 @@ urlpatterns = [
 				url(r'^carousel_element/edit/(?P<id>\d+)$', home.edit_carousel_element_page, name = 'edit_carousel_element_url'),
 				url(r'^carousel_element/new/$', home.new_carousel_element_page, name = 'new_carousel_element_url'),
 				url(r'^carousel/edit/$', home.edit_carousel_page, name = 'edit_carousel_url'),
+
+				url(r'^about/carousel/(?P<id>\d+)/move/up/$', about.carousel_element_move_up_page, name = 'about_carousel_element_move_up_url'),
+				url(r'^about/carousel/(?P<id>\d+)/move/down/$', about.carousel_element_move_down_page, name = 'about_carousel_element_move_down_url'),
+				url(r'^about/carousel_element/remove/(?P<id>\d+)$', about.remove_carousel_element_page, name = 'about_remove_carousel_element_url'),
+				url(r'^about/carousel_element/edit/(?P<id>\d+)$', about.edit_carousel_element_page, name = 'about_edit_carousel_element_url'),
+				url(r'^about/carousel_element/new/$', about.new_carousel_element_page, name = 'about_new_carousel_element_url'),
+				url(r'^about/carousel/edit/$', about.edit_carousel_page, name = 'about_edit_carousel_url'),
+
 				url(r'^login/$', admin_views.admin_auth_page, name = 'admin_auth_url'),
 				url(r'^logout/$', admin_views.logout_page, name = 'logout_url'),
 				url(r'^doctors/new/$', doctors.new_doctor_page, name = 'new_doctor_url'),
@@ -67,4 +75,7 @@ urlpatterns = [
 				url(r'^for_patients/remove/(?P<id>\d+)$', for_patients.remove_for_patients_page, name = 'remove_for_patients_url'),
 				url(r'^(?P<where>\w+)/text/edit/(?P<id>\d+)$', admin_views.edit_text_page, name = 'edit_text_url'),
 				url(r'^(?P<where>\w+)/text/new/$', admin_views.edit_text_page, name = 'new_text_url'),
+				url(r'^comments/new/$', comments.edit_portal_page, name = 'new_portal_url'),
+				url(r'^comments/edit/(?P<id>\d+)$', comments.edit_portal_page, name = 'edit_portal_url'),
+				url(r'^comments/remove/(?P<id>\d+)$', comments.remove_portal_page, name = 'remove_portal_url'),
 				]

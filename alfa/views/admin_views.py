@@ -57,7 +57,11 @@ def edit_text_page(request, where, id=None):
 		context['action'] = reverse('new_text_url', kwargs={'where': where})
 	else:
 		context['action'] = reverse('edit_text_url', kwargs={'id': id, 'where': where})
-	context['header'] = 'Добавить текст в раздел \'ДМС\''
+	if where == 'dms':
+		name = 'ДМС'
+	elif where == 'about':
+		name = 'О нас'
+	context['header'] = 'Добавить текст в раздел \'' + name + '\''
 	template_name = 'admin/edit_text_page.html'
 	try:
 		try:

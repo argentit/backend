@@ -1,0 +1,28 @@
+{% extends "admin/base_admin.html" %}
+
+{% block head %}
+	{% load cropping thumbnail %}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			{% if item.count == 0 %}
+				<p class="h4">Изображения ещё не добавлены</p>
+			{% else %}
+				{% for item in carousel %}
+					<div class="col-2">
+						<img src="{% cropped_thumbnail item 'cropping' %}" alt="" class="w-100">
+						{% url 'about_carousel_element_move_up_url' item.id as left_url %}
+						{% url 'about_carousel_element_move_down_url' item.id as right_url %}
+						{% include 'admin/left_right_buttons.html' %}
+						{% url 'about_remove_carousel_element_url' item.id  as remove_url %}
+						{% url 'about_edit_carousel_element_url' item.id  as edit_url %}
+						{% include 'admin/remove_edit_buttons.html' %}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+
+	</div>
+{% endblock %}

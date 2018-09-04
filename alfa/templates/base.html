@@ -23,7 +23,7 @@
 	</script>
 
 </head>
-<body class="b-0 p-0" style="min-width:1024px;">
+<body class="b-0 p-0" style="min-width:1226px;">
 		<div class="row mx-2 my-2 text-mgrey" >
 			<div class="col-md-3">
 				<div class="d-flex justify-content-center">
@@ -120,6 +120,9 @@
 				<li class="nav-item">
 	  				<a class="nav-link text-lgrey" href="{% url 'news_url' %}">Новости</a>
 				</li>
+				<li class="nav-item">
+	  				<a class="nav-link text-lgrey" href="{% url 'about_url' %}">О нас</a>
+				</li>
 				{% if request.user.is_authenticated %}
 					<li class="nav-item ml-auto">
 		  				<a class="nav-link text-lgrey" href="{% url 'logout_url' %}">Выйти</a>
@@ -148,7 +151,7 @@
     				<a class="nav-link text-lgrey" href="{% url 'charity_url' %}">Благотворительность</a>
   				</li>
 			</ul>
-			<div class="col-lg-5 my-2 mr-">
+			<div class="col-4 my-2" style="font-size:80%;">
 				{% include 'prod_footer.html' %}
 			</div>
 		</div>
