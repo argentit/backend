@@ -282,3 +282,27 @@ class EditPortalForm(forms.ModelForm):
 			'image': 'Изображение:',
 			'cropping': ''
 		}
+
+
+class EditAboutCarouselElementForm(forms.ModelForm):
+	class Meta:
+		model = CarouselElement
+		fields = ['image', 'cropping']
+		widgets = {
+			'image': ImageCropWidget,
+		}
+		labels = {
+			'image': 'Изображение:',
+			'cropping': ''
+		}
+
+class NewAboutCarouselElementForm(forms.ModelForm):
+	class Meta:
+		model = CarouselElement
+		fields = ['image',]
+		widgets = {
+			'image': forms.widgets.FileInput(attrs={'required':''}),
+		}
+		labels = {
+			'image': 'Изображение:',
+		}

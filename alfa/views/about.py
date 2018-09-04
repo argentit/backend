@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from alfa.models import CarouselElement, Text
-from alfa.forms import  NewCarouselElementForm, EditCarouselElementForm
+from alfa.forms import  NewAboutCarouselElementForm, EditAboutCarouselElementForm
 from alfa.decorators import *
 
 def about_page(request):
@@ -25,7 +25,7 @@ def new_carousel_element_page(request):
 	template_name = 'about/new_carousel_element_page.html'
 	try:
 		if request.method == 'POST':
-			form = NewCarouselElementForm(request.POST, request.FILES)
+			form = NewAboutCarouselElementForm(request.POST, request.FILES)
 			if form.is_valid():
 				element = form.save(commit=False)
 				element.location = 'about'
@@ -33,16 +33,16 @@ def new_carousel_element_page(request):
 				return HttpResponseRedirect(reverse('about_edit_carousel_element_url', kwargs={'id': element.id}))
 			else:
 				context['error'] = True
-				context['form'] = NewCarouselElementForm()
+				context['form'] = NewAboutCarouselElementForm()
 				context['error_message'] = 'Неверно заполнена форма.'
 				return render(request, template_name, context)
 		else:
-			context['form'] = NewCarouselElementForm()
+			context['form'] = NewAboutCarouselElementForm()
 			return render(request, template_name, context)
 	except Exception as e:
 		context['error'] = True
 		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
-		context['form'] = NewCarouselElementForm()
+		context['form'] = NewAboutCarouselElementForm()
 		return render(request, template_name, context)
 
 @has_premission()
@@ -55,7 +55,7 @@ def edit_carousel_element_page(request, id):
 		return HttpResponseRedirect(reverse('about_url'))
 	try:
 		if request.method == 'POST':
-			form = EditCarouselElementForm(request.POST, request.FILES, instance=element)
+			form = EditAboutCarouselElementForm(request.POST, request.FILES, instance=element)
 			if form.is_valid():
 				form.save()
 				return HttpResponseRedirect(reverse('about_url'))
@@ -65,12 +65,12 @@ def edit_carousel_element_page(request, id):
 				context['form'] = form
 				return render(request, template_name, context)
 		else:
-			context['form'] = EditCarouselElementForm(instance=element)
+			context['form'] = EditAboutCarouselElementForm(instance=element)
 			return render(request, template_name, context)
 	except Exception as e:
 		context['error'] = True
 		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
-		context['form'] = EditCarouselElementForm(instance=element)
+		context['form'] = EditAboutCarouselElementForm(instance=element)
 		return render(request, template_name, context)
 
 @has_premission()
