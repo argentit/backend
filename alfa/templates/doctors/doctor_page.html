@@ -6,7 +6,7 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col-xl-3">
+		<div class="col-3">
 			<img class="w-100" src="{{doctor.photo.url}}">
 			{% if request.user.is_authenticated %}
 				<a href="{% url 'edit_image_doctor_url' doctor.id %}">
