@@ -132,13 +132,13 @@
 				{% endif %}
 			</ul>
 		</nav>
-	<div class="container" style="min-height:87.5vh">
+	<div class="mx-5" style="min-height:87.5vh">
 		<br>
 		{% block content %}{% endblock %}
 		<br>
 	</div>
 	{% if request.user.is_authenticated %}
-		<div class="container">
+		<div class="mx-5">
 			<p class="h2">
 				Мета информация о странице
 				<code>

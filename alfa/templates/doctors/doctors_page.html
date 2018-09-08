@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}
 	Врачи Аргентита
@@ -12,10 +13,10 @@
 	<div class="row">
 		{% for doctor in doctors %}
 			{% if request.user.is_authenticated or doctor.is_active %}
-				<div class="border border-0 col-xl-6 my-2" id="{{doctor.id}}">
+				<div class="border border-0 col-6 my-2" id="{{doctor.id}}">
 					<div class="row">
 						<div class="col-4">
-							<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{{doctor.photo.url}}" alt="" style="width:100%"></a>
+							<a href="{% url 'doctor_url' doctor.id %}"><img class="card-img-top rounded-0 " src="{% thumbnail doctor.photo 267x400 crop %}" alt="" style="width:100%"></a>
 						</div>
 						<div class="col-8">
 							<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey no-underline">
