@@ -46,8 +46,6 @@ class SubService(models.Model):
 	service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='sub_survice', default=None, null=True)
 
 class Technology(models.Model):
-	#image = ImageCropField(blank=False, upload_to='img/technologies/')
-	#cropping_free = ImageRatioField('image', '300x230',free_crop=True, size_warning=True)
 	cropping = ImageRatioField('img', '500x500', hide_image_field=True)
 	name = models.CharField(max_length = 500, default = '')
 	slug = models.SlugField(blank=True, max_length = 20, default = '')
