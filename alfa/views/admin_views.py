@@ -91,3 +91,24 @@ def edit_text_page(request, where, id=None):
 		context['error'] = True
 		context['error_message'] = 'Произошла ошибка.<br>' + str(e)
 		return render(request, template_name, context)
+
+@has_premission()
+def edit_meta_page(request, id):
+	try:
+		obj = PageMetaData.objects.get(id=id)
+	except PageMetaData.DoesNotExist:
+		return HttpResponseRedirect(reverse('home_url'))
+	try:
+		if request.method == 'POST':
+			form = MetaDataForm(request.POST, instance=obj)
+			if form.is_valid():
+				form.save()
+			else:
+				raise form.errors
+		else:
+			raise 'Неверный метод хапроса'
+		return HttpResponseRedirect(obj.url)
+	except Exception as e:
+		context['meta_form_error'] = True
+		context['meta_form_error_message'] = 'Произошла ошибка.<br>' + str(e)
+		return render(request, template_name, context)

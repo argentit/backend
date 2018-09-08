@@ -306,3 +306,18 @@ class NewAboutCarouselElementForm(forms.ModelForm):
 		labels = {
 			'image': 'Изображение:',
 		}
+
+class MetaDataForm(forms.ModelForm):
+	class Meta:
+		model = PageMetaData
+		fields = ['title', 'description', 'keywords']
+		widgets = {
+			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
+			'description': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '3'}),
+			'keywords': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '3'}),
+		}
+		labels = {
+			'title': 'Заголовок страницы:',
+			'description': 'Описание:',
+			'keywords': 'Ключевые слова (через запятую):',
+		}

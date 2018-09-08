@@ -140,3 +140,9 @@ class Portal(models.Model):
 	url = models.URLField(default = None, null=True, blank=True)
 	image = models.ImageField(upload_to='img/comments/', default='img/comments/default.jpg', blank=True)
 	cropping = ImageRatioField('image', '600x200', hide_image_field=True)
+
+class PageMetaData(models.Model):
+	url = models.URLField(default = None, null=True, blank=True)
+	title = models.CharField(max_length=500, default='', blank=True)
+	description = models.CharField(max_length=1000, default='', blank=True)
+	keywords = models.CharField(max_length=1000, default='', blank=True)

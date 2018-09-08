@@ -78,4 +78,5 @@ urlpatterns = [
 				url(r'^comments/new/$', comments.edit_portal_page, name = 'new_portal_url'),
 				url(r'^comments/edit/(?P<id>\d+)$', comments.edit_portal_page, name = 'edit_portal_url'),
 				url(r'^comments/remove/(?P<id>\d+)$', comments.remove_portal_page, name = 'remove_portal_url'),
+				url(r'^meta/edit/(?P<id>\d+)$', admin_views.edit_meta_page, name = 'edit_meta_url'),
 				]
