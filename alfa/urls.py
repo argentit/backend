@@ -24,4 +24,5 @@ urlpatterns = [
 				url(r'^info/$', info.info_page, name='info_url'),
 				url(r'^about/$', about.about_page, name='about_url'),
 				url(r'robots.txt', views.robots_txt, name='robots_txt_url'),
+				# url(r'', views.return404, name='404_url'),
 				]

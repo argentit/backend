@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 
 {% load get_meta %}
-{% get_meta request.path as meta_data %}
+{% get_meta request as meta_data %}
 {% get_meta_form meta_data as meta_form %}
 <html>
 <head>
@@ -145,25 +145,27 @@
 		<br>
 	</div>
 	{% if request.user.is_authenticated %}
-		<div class="mx-5">
-			<p class="h2">
-				Мета информация о странице
-				<code>
-					{{meta_data.url}}
-				</code>
-			</p>
-			{% if meta_form_error %}
-				<div class="alert alert-danger rounded-0 container">{{meta_form_error_message|safe}}</div>
-			{% endif %}
-			<form class="" action="{% url 'edit_meta_url' id=meta_data.id %}" method="post">
-				{% csrf_token %}
-				{{meta_form.as_p}}
-				<div class="col-2 pl-0">
-					<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">
-				</div>
-			</form>
-		</div>
-		<br>
+		{% if meta_data %}
+			<div class="mx-5">
+				<p class="h2">
+					Мета информация о странице
+					<code>
+						{{meta_data.url}}
+					</code>
+				</p>
+				{% if meta_form_error %}
+					<div class="alert alert-danger rounded-0 container">{{meta_form_error_message|safe}}</div>
+				{% endif %}
+				<form class="" action="{% url 'edit_meta_url' id=meta_data.id %}" method="post">
+					{% csrf_token %}
+					{{meta_form.as_p}}
+					<div class="col-2 pl-0">
+						<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">
+					</div>
+				</form>
+			</div>
+			<br>
+		{% endif %}
 	{% endif %}
   	<footer class="page-footer font-small bg-dred text-center container-fluid m-0 rounded-0 text-lgrey">
 		<div class="row">

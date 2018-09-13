@@ -5,6 +5,7 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic import RedirectView
 
+
 urlpatterns = [
 	url(r'^select2/', include('django_select2.urls')),
 	url(r'^ckeditor/', include('ckeditor_uploader.urls')),
