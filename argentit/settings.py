@@ -6,13 +6,6 @@ from .local import *
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0ml-sg^c^0@_!5qs9&=31b%2c_+gfg(avu92iz-vm=mq^rtq=d'
-
-
 
 # Application definition
 SITE_ID = 1
