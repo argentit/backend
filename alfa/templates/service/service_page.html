@@ -14,7 +14,7 @@
 			</a>
 		{% endif %}
 	</h1>
-	<p>{{service.text}}</p>
+	<p>{{service.text|safe}}</p>
 	<h2>Стоимость: {{service.price}}</h2>
 	{% if service.doctors.count != 0 %}
 		<h4>Доктора:</h4>

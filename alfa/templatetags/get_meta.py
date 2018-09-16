@@ -14,7 +14,7 @@ def get_meta(request, *args):
 			return None
 	except PageMetaData.DoesNotExist:
 		obj = PageMetaData()
-		obj.url = path
+		obj.url = request.path
 		obj.save()
 		return obj
 
