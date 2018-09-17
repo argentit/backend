@@ -8,14 +8,14 @@ from alfa.forms import MetaDataForm
 @register.simple_tag
 def get_meta(request, *args):
 	try:
-		if request.user.is_authenticated:
-			return PageMetaData.objects.get(url=request.path)
-		else:
-			return None
+		return PageMetaData.objects.get(url=request.path)
 	except PageMetaData.DoesNotExist:
-		obj = PageMetaData()
-		obj.url = request.path
-		obj.save()
+		if request.user.is_authenticated:
+			obj = PageMetaData()
+			obj.url = request.path
+			obj.save()
+		else:
+			obj = None
 		return obj
 
 @register.simple_tag
