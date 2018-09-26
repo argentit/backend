@@ -22,8 +22,12 @@
 			{% for doctor in service.doctors.all %}
 				{% if doctor.is_active %}
 					<div class="col-4">
-						<a href="{% url 'doctor_url' doctor.id %}"><img src="{% thumbnail doctor.photo 267x400 crop %}" alt="{{doctor}}" class="w-100"></a>
-						<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
+						<div class="row">
+							<a href="{% url 'doctor_url' doctor.id %}"><img src="{% thumbnail doctor.photo 267x400 crop %}" alt="{{doctor}}" class="w-100"></a>
+						</div>
+						<div class="row">
+							<a href="{% url 'doctor_url' doctor.id %}" class="text-mgrey h4 no-underline">{{doctor}}</a>
+						</div>
 					</div>
 				{% endif %}
 			{% endfor %}
