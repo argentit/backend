@@ -16,7 +16,7 @@
 				<a href="{{portal.url}}">
 					<img src="{% cropped_thumbnail portal "cropping" %}" alt="" class="w-100">
 				</a>
-				<a href="{{portal.url}}">
+				<a href="{{portal.url}}" class="text-mgrey">
 					<h3>{{portal.name}}</h3>
 				</a>
 				{% url 'edit_portal_url' portal.id as edit_url %}
@@ -46,8 +46,7 @@
 	</a>
 	</div>
 	<script src="https://prodoctorov.ru/static/js/widget_footer.js?v3"></script>
-
-	<div id="med-lenta" data-mode="clinic" data-id="1570" data-perpage="10" data-type="0" class="w-100">
+	<div id="med-lenta" data-mode="clinic" data-id="1570" data-perpage="1" data-type="1" class="">
 	</div>
 	<script src="https://like.doctor/js/widgets/lenta.js" type="text/javascript"></script>
 {% endblock %}
