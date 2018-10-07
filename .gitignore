@@ -12,3 +12,5 @@ alfa/migrations
 alfa/templates/prod_tags.html
 alfa/templates/prod_footer.html
 alfa/templates/comments_prod.html
+env
+venv
