@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf.urls import url
 from django.conf.urls import include
 
-from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home, comments, about
+from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home, comments, about, sales
 
 urlpatterns = [
 				url(r'^home_post/new/$', home.new_home_page, name = 'new_home_post_url'),
@@ -79,4 +79,7 @@ urlpatterns = [
 				url(r'^comments/edit/(?P<id>\d+)$', comments.edit_portal_page, name = 'edit_portal_url'),
 				url(r'^comments/remove/(?P<id>\d+)$', comments.remove_portal_page, name = 'remove_portal_url'),
 				url(r'^meta/edit/(?P<id>\d+)$', admin_views.edit_meta_page, name = 'edit_meta_url'),
+				path('sales/new', sales.new_sale_page, name='new_sale_url'),
+				path('sales/remove/<int:id>', sales.remove_sale_page, name='remove_sale_url'),
+				path('sales/edit/<int:id>', sales.new_sale_page, name='edit_sale_url'),
 				]

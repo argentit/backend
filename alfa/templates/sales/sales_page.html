@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<h1>Акции</h1>
+	{% if request.user.is_authenticated %}
+		<a href="{% url 'new_sale_url' %}">
+			<button class="btn btn-primary rounded-0 container-fluid" type="button" name="button">Добавить акцию</button>
+		</a>
+	{% endif %}
+	<div class="row">
+		{% for sale in sales %}
+			<div class="col-3 align-self-start">
+				<div class="m-3">
+					<div class="row">
+						<a href="{% url 'sale_url' sale.id %}">
+							{% load thumbnail %}
+							<img class="w-100 h-100" src="{% thumbnail sale.image 600x600 crop %}" alt="">
+						</a>
+					</div>
+					<div class="row">
+							<a class="h3 text-mgrey no-underline" href="{% url 'sale_url' sale.id %}">{{sale.title}}
+							</a>
+					</div>
+				</div>
+				{% if request.user.is_authenticated %}
+					<div class="row">
+						<div class="col">
+							<a href="{% url 'remove_sale_url' sale.id %}">
+								<button class="btn btn-danger rounded-0 container-fluid" type="button" name="button">Удалить</button>
+							</a>
+						</div>
+						<div class="col">
+							<a href="{% url 'edit_sale_url' sale.id %}">
+								<button class="btn btn-success rounded-0 container-fluid" type="button" name="button">Изменить</button>
+							</a>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

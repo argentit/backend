@@ -48,17 +48,19 @@ class HomePostForm(forms.ModelForm):
 class EditCarouselElementForm(forms.ModelForm):
 	class Meta:
 		model = CarouselElement
-		fields = ['title', 'text', 'post', 'image', 'cropping']
+		fields = ['title', 'text', 'post', 'sale', 'image', 'cropping']
 		widgets = {
 			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 4,}),
 			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
+			'sale': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
 			'image': ImageCropWidget,
 		}
 		labels = {
 			'title': 'Заголовок (на изображении):',
 			'text': 'Текст (на изображении):',
 			'post': 'Ссылка:',
+			'sale': 'Акция (приоритетнее):',
 			'image': 'Изображение:',
 			'cropping': ''
 		}
@@ -66,17 +68,19 @@ class EditCarouselElementForm(forms.ModelForm):
 class NewCarouselElementForm(forms.ModelForm):
 	class Meta:
 		model = CarouselElement
-		fields = ['title', 'text', 'post', 'image',]
+		fields = ['title', 'text', 'post', 'sale', 'image',]
 		widgets = {
 			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0', 'rows': 4,}),
 			'post': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
+			'sale': forms.widgets.Select(attrs={'class': 'form-control rounded-0',}),
 			'image': forms.widgets.FileInput(attrs={'required':''}),
 		}
 		labels = {
 			'title': 'Заголовок (на изображении):',
 			'text': 'Текст (на изображении):',
 			'post': 'Ссылка:',
+			'sale': 'Акция (приоритетнее):',
 			'image': 'Изображение:',
 		}
 
@@ -320,4 +324,19 @@ class MetaDataForm(forms.ModelForm):
 			'title': 'Заголовок страницы:',
 			'description': 'Описание:',
 			'keywords': 'Ключевые слова (через запятую):',
+		}
+
+class SaleForm(forms.ModelForm):
+	class Meta:
+		model = Sale
+		fields = ['title', 'image', 'content']
+		widgets = {
+			'title': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0',}),
+			# 'description': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '3'}),
+		}
+		labels = {
+			'title': 'Заголовок:',
+			# 'description': 'Описание:',
+			'image': 'Изображение:',
+			'content': '',
 		}

@@ -15,12 +15,24 @@ class HomePost(models.Model):
 	def __str__(self):
 		return self.title
 
+class Sale(models.Model):
+	title = models.CharField(max_length=1000, default='')
+	content = RichTextUploadingField(blank=True, null=True)
+	# description = models.CharField(max_length=10000, default='')
+	datetime = models.DateTimeField(auto_now_add=True)
+	image = models.ImageField(upload_to='img/sales/', default='img/sales/default.jpg', blank=False)
+	class Meta:
+		ordering = ['-datetime']
+	def __str__(self):
+		return self.title
+
 class CarouselElement(models.Model):
 	title = models.CharField(max_length = 500, default='', null=True, blank=True)
 	text = models.CharField(max_length = 5000, default='', null=True, blank=True)
 	image = models.ImageField(upload_to='img/home_page/', default='img/home_page/default.jpg', blank=False)
 	cropping = ImageRatioField('image', '800x200', hide_image_field=True)
 	post = models.ForeignKey(HomePost, on_delete=models.CASCADE, blank=True, null=True, default=None)
+	sale = models.ForeignKey(Sale, on_delete=models.CASCADE, blank=True, null=True, default=None)
 	datetime = models.DateTimeField(auto_now_add=True, blank=True)
 	number = models.CharField(max_length=10, default='0')
 	location = models.CharField(max_length=50, default='home')

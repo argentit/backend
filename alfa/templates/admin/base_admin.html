@@ -57,6 +57,9 @@
 				<li class="nav-item">
 	  				<a class="nav-link text-lgrey" href="{% url 'about_url' %}">О нас</a>
 				</li>
+				<li class="nav-item">
+	  				<a class="nav-link text-lgrey" href="{% url 'sales_url' %}">Акции</a>
+				</li>
 				{% if request.user.is_authenticated %}
 					<li class="nav-item ml-auto">
 		  				<a class="nav-link text-lgrey" href="{% url 'logout_url' %}">Выйти</a>

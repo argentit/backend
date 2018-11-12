@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+	<h1 class="container">{{title}}</h1>
+	<form class="" action="{{request.path}}" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{# {{form.as_p}} #}
+		{{form.media}}
+		<div class="container">
+			<label>Заголовок:</label>
+			{{form.title}}
+			<label for="">Изображение:</label>
+			{{form.image}}
+		</div>
+		<div class="">
+			{{form.content}}
+		</div>
+		<div class="container mt-4">
+			<div class="row ">
+				<div class="col-2 pl-0">
+					<input type="submit" value="Сохранить" class="btn btn-success rounded-0 container-fluid">
+				</div>
+				<div class="col-2">
+					<a href="{% url 'sales_url' %}">
+						<div class="btn btn-danger container-fluid rounded-0">Отменить</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}

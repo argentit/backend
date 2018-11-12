@@ -16,33 +16,35 @@
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<a {% if active_element.post %}href="#{{active_element.post.id}}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail active_element 'cropping' %}" alt="{{active_element.title}}" style="max-width:100%; max-height:100%;">
+					<a {% if active_element.post or active_element.sale %}href="{% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{active_element.post.id}}{% endif %}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail active_element 'cropping' %}" alt="{{active_element.title}}" style="max-width:100%; max-height:100%;">
 					</a>
 					<div class="carousel-caption d-none d-md-block">
 						{% if active_element.title %}
-							<a href="#{{active_element.post.id}}" class="text-mgrey no-underline">
-								<h5 class="h2">{{active_element.title}}</h5>
+							<a href="{% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{active_element.post.id}}{% endif %}" class="text-mgrey no-underline">
+								<h5 class="h2 px-2" style="background-color:white;display:inline">{{active_element.title}}</h5>
 							</a>
 						{% endif %}
 						{% if active_element.text %}
-							<a href="#{{active_element.post.id}}" class="text-mgrey no-underline">
-								<p>{{active_element.text}}</p>
+							<br>
+							<a href="{% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{active_element.post.id}}{% endif %}" class="text-mgrey no-underline">
+								<p class="px-2" style="background-color:white;display:inline;">{{active_element.text}}</p>
 							</a>
 						{% endif %}
 					</div>
 				</div>
 				{% for item in carousel %}
 					<div class="carousel-item">
-						<a {% if item.post %}href="#{{item.post.id}}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail item 'cropping' %}" alt="{{item.title}}" style="max-width:100%; max-height:100%;"></a>
+						<a {% if item.post or item.sale %}href="{% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{item.post.id}}{% endif %}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail item 'cropping' %}" alt="{{item.title}}" style="max-width:100%; max-height:100%;"></a>
 						<div class="carousel-caption d-none d-md-block">
 							{% if item.title %}
-								<a href="#{{item.post.id}}" class=" text-mgrey no-underline">
-									<h5 class="h2">{{item.title}}</h5>
+								<a href="{% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{item.post.id}}{% endif %}" class=" text-mgrey no-underline" style="background-color: white;">
+									<h5 class="h2 px-2" style="background-color:white;display:inline"> {{item.title}}</h5>
 								</a>
 							{% endif %}
 							{% if item.text %}
-								<a href="#{{item.post.id}}" class="text-mgrey no-underline">
-									<p>{{item.text}}</p>
+								<br>
+								<a href="{% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{item.post.id}}{% endif %}" class="text-mgrey no-underline">
+									<p class="px-2" style="background-color:white;display:inline">{{item.text}}</p>
 								</a>
 							{% endif %}
 						</div>
