@@ -184,21 +184,59 @@
 	{% endif %}
   	<footer class="page-footer font-small bg-dred text-center container-fluid m-0 rounded-0 text-lgrey">
 		<div class="row">
-			<ul class="nav col my-3">
-				<li class="nav-item">
-    				<a class="nav-link text-lgrey" href="{% url 'info_url' %}">Правовая информация</a>
-  				</li>
-				<li class="nav-item">
-    				<a class="nav-link text-lgrey" href="{% url 'for_patients_url' %}">Пациентам</a>
-  				</li>
-				<li class="nav-item">
-    				<a class="nav-link text-lgrey" href="{% url 'jobs_url' %}">Вакансии</a>
-  				</li>
-				<li class="nav-item">
-    				<a class="nav-link text-lgrey" href="{% url 'charity_url' %}">Благотворительность</a>
-  				</li>
-			</ul>
-			<div class="col-4 my-2" style="font-size:80%;">
+			{% load get_documents %}
+			<div class="col-3 my-3">
+				<div class="row">
+					<div class="col">
+						{% if request.user.is_authenticated %}
+							<a class="text-lgrey no-underline" href="{% url 'info_url' %}">
+								Добавить/Удалить документ
+							</a>
+						{% endif %}
+					</div>
+				</div>
+				{% get_documents 'info' as info %}
+				{% for doc in info %}
+					<div class="row">
+						<div class="col">
+							<a href="{{doc.file.url}}" target="_blank" class="text-lgrey no-underline">
+								{{doc.name}}
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-3 my-3">
+				<div class="row">
+					<div class="col">
+						{% if request.user.is_authenticated %}
+							<a class="text-lgrey no-underline" href="{% url 'for_patients_url' %}">
+								Добавить/Удалить документ
+							</a>
+						{% endif %}
+					</div>
+				</div>
+				{% get_documents 'for_patients' as for_p %}
+				<div class="row">
+					<div class="col">
+						<a href="{% url 'dms_url' %}" class=" text-lgrey no-underline">Полис ДМС</a>
+					</div>
+				</div>
+				{% for doc in for_p %}
+					<div class="row">
+						<div class="col">
+							<a href="{{doc.file.url}}" target="_blank" class="text-lgrey no-underline">
+								{{doc.name}}
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-2 my-3">
+				<a class="text-lgrey no-underline" href="{% url 'jobs_url' %}">Вакансии</a>
+				<a class="text-lgrey no-underline" href="{% url 'charity_url' %}">Благотворительность</a>
+			</div>
+			<div class="col-4 my-3" style="font-size:80%;">
 				{% include 'prod_footer.html' %}
 			</div>
 		</div>
