@@ -6,6 +6,27 @@
 
 {% block content %}
 	<h1 class="{{h1_class}}">Партнёры</h1>
+
+	{% if text %}
+		<p>
+			{{text}}
+			{% if request.user.is_authenticated %}
+				<a href="{% url 'edit_text_url' 'partners' text.id %}">
+					<button type="button" name="button" class="btn btn-primary rounded-0">Изменить</button>
+				</a>
+			{% endif %}
+		</p>
+	{% else %}
+		{% if request.user.is_authenticated %}
+			<a href="{% url 'new_text_url' 'partners' %}">
+				<button type="button" name="button" class="btn btn-primary rounded-0">Добавить текст</button>
+			</a>
+		{% endif %}
+	{% endif %}
+
+
+
+
 	{% with url_name='new_partner_url' item='партнёра'%}
 		{% include 'admin/add_button.html' %}
 	{% endwith %}
@@ -13,26 +34,32 @@
 	<div class="row">
 		<div class="col">
 			<ul class="list-group list-group-flush">
-				{% for item in partners %}
-					<li class="list-group-item  pl-0">
-						<div class="row">
-							{% if item.image %}
-								<div class="col-2">
-									<a {% if item.url %}href="{{item.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">
-										<img src="{{item.image.url}}" alt="item.name" class="w-100">
-									</a>
+				{% if partners.count == 0 %}
+					<p>
+						Пока ни одного партнёра не добавлено.
+					</p>
+				{% else %}
+					{% for item in partners %}
+						<li class="list-group-item  pl-0">
+							<div class="row">
+								{% if item.image %}
+									<div class="col-2">
+										<a {% if item.url %}href="{{item.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">
+											<img src="{{item.image.url}}" alt="item.name" class="w-100">
+										</a>
+									</div>
+								{% endif %}
+								<div class="col">
+									<a {% if item.url %}href="{{item.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">{{item.name}}</a>
 								</div>
-							{% endif %}
-							<div class="col">
-								<a {% if item.url %}href="{{item.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">{{item.name}}</a>
 							</div>
-						</div>
 
-						{% url 'remove_partner_url' item.id  as remove_url %}
-						{% url 'edit_partner_url' item.id  as edit_url %}
-						{% include 'admin/remove_edit_buttons.html' %}
-					</li>
-				{% endfor %}
+							{% url 'remove_partner_url' item.id  as remove_url %}
+							{% url 'edit_partner_url' item.id  as edit_url %}
+							{% include 'admin/remove_edit_buttons.html' %}
+						</li>
+					{% endfor %}
+				{% endif %}
 			</ul>
 		</div>
 	</div>

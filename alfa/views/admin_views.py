@@ -61,6 +61,8 @@ def edit_text_page(request, where, id=None):
 		name = 'ДМС'
 	elif where == 'about':
 		name = 'О нас'
+	elif where == 'partners':
+		name = 'Партнёры'
 	context['header'] = 'Добавить текст в раздел \'' + name + '\''
 	template_name = 'admin/edit_text_page.html'
 	try:
