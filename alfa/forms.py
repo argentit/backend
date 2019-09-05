@@ -340,3 +340,18 @@ class SaleForm(forms.ModelForm):
 			'image': 'Изображение:',
 			'content': '',
 		}
+
+class PartnerForm(forms.ModelForm):
+	class Meta:
+		model = Partner
+		fields = ['name', 'url', 'image']
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0',}),
+			'url': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0',}),
+			'image': forms.widgets.FileInput(attrs={'accept': 'image/*',}),
+		}
+		labels = {
+			'name': 'Название',
+			'url': 'Ссылка',
+			'image': 'Логотип',
+		}

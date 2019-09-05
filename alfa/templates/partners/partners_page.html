@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Пациентам
+{% endblock %}
+
+{% block content %}
+	<h1 class="{{h1_class}}">Партнёры</h1>
+	{% with url_name='new_partner_url' item='партнёра'%}
+		{% include 'admin/add_button.html' %}
+	{% endwith %}
+
+	<div class="row">
+		<div class="col">
+			<ul class="list-group list-group-flush">
+				{% for item in partners %}
+					<li class="list-group-item  pl-0">
+						<div class="row">
+							{% if item.image %}
+								<div class="col-2">
+									<a {% if item.url %}href="{{item.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">
+										<img src="{{item.image.url}}" alt="item.name" class="w-100">
+									</a>
+								</div>
+							{% endif %}
+							<div class="col">
+								<a {% if item.url %}href="{{item.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">{{item.name}}</a>
+							</div>
+						</div>
+
+						{% url 'remove_partner_url' item.id  as remove_url %}
+						{% url 'edit_partner_url' item.id  as edit_url %}
+						{% include 'admin/remove_edit_buttons.html' %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+
+
+
+<!--
+	<ul class="list-group list-group-flush">
+		{% for partner in partners %}
+			<li class="list-group-item border border-0 pl-0">
+				<a href="{{document.file.url}}" target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">{{partner.name}}</a>
+				{% url 'remove_for_patients_url' document.id  as remove_url %}
+				{% url 'edit_for_patients_url' document.id  as edit_url %}
+				{% include 'admin/remove_edit_buttons.html' %}
+			</li>
+
+			<li class="list-group-item  pl-0">
+				<div class="row">
+					{% if partner.image %}
+						<div class="col-2">
+							<a {% if partner.url %}href="{{partner.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">
+								<img src="{{partner.image.url}}" alt="partner.name" class="w-100">
+							</a>
+						</div>
+					{% endif %}
+					<div class="col">
+						<a {% if partner.url %}href="{{partner.url}}"{% endif %} target="_blank" style="font-size: 25px;" class="text-mgrey no-underline">{{partner.name}}</a>
+					</div>
+				</div>
+
+				{% url 'remove_dms_url' item.id  as remove_url %}
+				{% url 'edit_dms_url' item.id  as edit_url %}
+				{% include 'admin/remove_edit_buttons.html' %}
+
+			</li>
+		{% endfor %}
+	</ul>
+	-->
+{% endblock %}

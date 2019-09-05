@@ -139,6 +139,11 @@ class DMS(models.Model):
 	url = models.URLField(default = None, null=True, blank=True)
 	image = models.ImageField(upload_to='img/dms/', default=None, null=True, blank=True)
 
+class Partner(models.Model):
+	name = models.CharField(max_length=500, default='')
+	url = models.URLField(default = None, null=True, blank=True)
+	image = models.ImageField(upload_to='img/partners/', default=None, null=True, blank=True)
+
 class Text(models.Model):
 	text = models.TextField(default='')
 	name = models.CharField(max_length=500, default='')
