@@ -351,7 +351,22 @@ class PartnerForm(forms.ModelForm):
 			'image': forms.widgets.FileInput(attrs={'accept': 'image/*',}),
 		}
 		labels = {
-			'name': 'Название',
-			'url': 'Ссылка',
-			'image': 'Логотип',
+			'name': 'Название:',
+			'url': 'Ссылка:',
+			'image': 'Логотип:',
+		}
+
+class ImageTextForm(forms.ModelForm):
+	class Meta:
+		model = ImageText
+		fields = ['name', 'text', 'image']
+		widgets = {
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0',}),
+			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0',}),
+			'image': forms.widgets.FileInput(attrs={'accept': 'image/*',}),
+		}
+		labels = {
+			'name': 'Название:',
+			'text': 'Текст:',
+			'image': 'Изображение:',
 		}

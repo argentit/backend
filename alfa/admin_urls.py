@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf.urls import url
 from django.conf.urls import include
 
-from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home, comments, about, sales, partners
+from alfa.views import admin_views, charity, jobs, news, for_patients, info, service, doctors, technologies, results, home, comments, about, sales, partners, ImageText
 
 urlpatterns = [
 				url(r'^home_post/new/$', home.new_home_page, name = 'new_home_post_url'),
@@ -85,4 +85,7 @@ urlpatterns = [
 				path('new_partner', partners.new_partner_page, name='new_partner_url'),
 				path('partner/remove/<int:id>', partners.remove_partner_page, name='remove_partner_url'),
 				path('partner/edit/<int:id>', partners.edit_partner_page, name='edit_partner_url'),
+				path('image_text/remove/<int:id>', ImageText.remove_image_text, name='remove_image_text_url'),
+				path('image_text/<str:type>/<int:id>', ImageText.ImageTextView.as_view(), name='image_text_page_url'),
+
 				]

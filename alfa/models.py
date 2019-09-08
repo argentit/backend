@@ -150,6 +150,13 @@ class Text(models.Model):
 	def __str__(self):
 		return self.text
 
+class ImageText(models.Model):
+	name = models.CharField(max_length=500, default='', blank=True)
+	text = models.TextField(default='')
+	url = models.URLField(default=None, null=True, blank=True)
+	image = models.ImageField(upload_to='img/iamge_text/', default=None, null=True, blank=True)
+	type = models.CharField(max_length=500, default='', blank=True)
+
 class Portal(models.Model):
 	name = models.CharField(max_length=500, default='')
 	url = models.URLField(default = None, null=True, blank=True)
