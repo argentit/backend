@@ -156,6 +156,8 @@ class ImageText(models.Model):
 	url = models.URLField(default=None, null=True, blank=True)
 	image = models.ImageField(upload_to='img/iamge_text/', default=None, null=True, blank=True)
 	type = models.CharField(max_length=500, default='', blank=True)
+	class Meta:
+		ordering = ['-id']
 
 class Portal(models.Model):
 	name = models.CharField(max_length=500, default='')
