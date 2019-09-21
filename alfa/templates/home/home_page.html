@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block content %}
-	<h1 class="{{h1_class}}">Стоматология Аргентит</h1>
 	{% if not request %}
 	{% if not active_element %}
 		<p class="h5">Ни одного изображения ещё не добавлено</p>
@@ -116,6 +115,9 @@
 	<ul class="list-group list-group-flush">
 		{% for item in home_posts %}
 			<li class="list-group-item" id='{{post.id}}'>
+				<h2>
+					{{item.name}}
+				</h2>
 				<div class="row">
 					{% if item.image %}
 						<div class="col-3">
