@@ -359,14 +359,14 @@ class PartnerForm(forms.ModelForm):
 class ImageTextForm(forms.ModelForm):
 	class Meta:
 		model = ImageText
-		fields = ['name', 'text', 'image']
+		fields = ['name', 'image', 'content']
 		widgets = {
 			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0',}),
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0',}),
 			'image': forms.widgets.FileInput(attrs={'accept': 'image/*',}),
 		}
 		labels = {
-			'name': 'Название:',
-			'text': 'Текст:',
+			'name': 'Заголовок:',
+			'content': 'Текст:',
 			'image': 'Изображение:',
 		}
