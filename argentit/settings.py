@@ -149,6 +149,40 @@ CKEDITOR_CONFIGS = {
 		'width': '99.9vw',
 		'height': '1024',
     },
+	'home': {
+		'uiColor': '#ffffff',
+		'toolbar': 'custom',
+		'toolbar_news':[
+			[ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ],
+			[ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+			[ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ],
+			[ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ],
+			'/',
+			[ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ],
+			[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ],
+			[ 'Link', 'Unlink', 'Anchor' ],
+			[ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ],
+			'/',
+			[ 'Styles', 'Format', 'Font', 'FontSize' ],
+			[ 'TextColor', 'BGColor' ],
+			[ 'Maximize', 'ShowBlocks' ],
+			[ 'About' ],
+		],
+		'format_h1': { 'element': 'p', 'attributes': { 'class': 'h1' } },
+		'format_h2': { 'element': 'p', 'attributes': { 'class': 'h2' } },
+		'format_h3': { 'element': 'p', 'attributes': { 'class': 'h3' } },
+		'format_h4': { 'element': 'p', 'attributes': { 'class': 'h4' } },
+		'format_h5': { 'element': 'p', 'attributes': { 'class': 'h5' } },
+		'format_h6': { 'element': 'p', 'attributes': { 'class': 'h6' } },
+		'format_a': { 'element': 'a', 'attributes': { 'class': 'no-underline' } },
+		'width': '100%',
+		'height': '300',
+    },
+
+
+
+
+
 	'toolbar_custom': [
             {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
