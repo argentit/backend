@@ -15,3 +15,4 @@ alfa/templates/prod_footer.html
 alfa/templates/comments_prod.html
 env
 venv
+argentit/local.py
