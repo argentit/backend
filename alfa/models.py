@@ -49,7 +49,7 @@ class Service(models.Model):
 	description = models.CharField(max_length = 10000, default = '')
 	price = models.CharField(max_length = 1000, default = '')
 	text = models.TextField(default='')
-	type = models.TextField(default='')
+	type = models.TextField(default='', null=True, blank=True)
 	def __str__(self):
 		return self.name
 

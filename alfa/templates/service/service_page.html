@@ -16,7 +16,7 @@
 	</h1>
 	<p>{{service.text|safe}}</p>
 	<h2>Стоимость: {{service.price}}</h2>
-	{% if request.user.is_authenticated %}
+	{% if request.user.is_authenticated and service.type == 'имплантация' %}
 	<a href="{% url 'new_sub_service_url' service.id %}">
 		<button type="button" name="button" class="btn btn-primary rounded-0">Добавить подсервис</button>
 	</a>

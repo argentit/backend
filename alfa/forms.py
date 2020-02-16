@@ -176,7 +176,7 @@ class ServiceForm(forms.ModelForm):
 		fields = ['name', 'type', 'price', 'text', ]
 		widgets = {
 			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
-			'type': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'type': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ',}),
 			'price': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
 
