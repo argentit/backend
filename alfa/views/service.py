@@ -20,6 +20,14 @@ def service_page(request, id):
 	if service.type == 'имплантация':
 		for sub_service in service.sub_services:
 			sub_service.prices = sub_service.price.split(';')
+			if len(sub_service.prices) > 3 :
+				sub_service.prices = sub_service.prices[:3]
+			elif len(sub_service.prices) < 3:
+				sub_service.prices.append(' ')
+				if len(sub_service.prices) < 3:
+					sub_service.prices.append(' ')
+					if len(sub_service.prices) < 3:
+						sub_service.prices.append(' ')
 	context['service'] = service
 	return render(request, 'service/service_page.html', context)
 
