@@ -1,4 +1,4 @@
-Django==2.1
+Django==2.1.5
 django-appconf==1.0.2
 django-bootstrap4==0.0.6
 django-ckeditor==5.6.1

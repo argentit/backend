@@ -173,14 +173,16 @@ class JobForm(forms.Form):
 class ServiceForm(forms.ModelForm):
 	class Meta:
 		model = Service
-		fields = ['name', 'price', 'text', ]
+		fields = ['name', 'type', 'price', 'text', ]
 		widgets = {
 			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'type': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'price': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
 			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
 
         }
 		labels = {
+			'Type': 'Тип:',
 			'name': 'Название:',
 			'text': 'Текст',
 			'price': 'Цена:',
@@ -188,6 +190,25 @@ class ServiceForm(forms.ModelForm):
 	# name = forms.CharField()
 	# description = forms.CharField()
 	# price = forms.CharField()
+
+class SubServiceForm(forms.ModelForm):
+	class Meta:
+		model = SubService
+		fields = ['name', 'price', ]
+		widgets = {
+			'type': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'name': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			'price': forms.widgets.TextInput(attrs={'class': 'form-control rounded-0 ', 'required': ''}),
+			# 'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
+
+        }
+		labels = {
+			'type': 'Tип:',
+			'name': 'Название:',
+			# 'text': 'Текст',
+			'price': 'Цена:',
+		}
+
 
 class TechnologyForm(forms.Form):
 	name = forms.CharField(required=True)

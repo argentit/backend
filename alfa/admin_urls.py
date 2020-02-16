@@ -87,5 +87,7 @@ urlpatterns = [
 				path('partner/edit/<int:id>', partners.edit_partner_page, name='edit_partner_url'),
 				path('image_text/remove/<int:id>', ImageText.remove_image_text, name='remove_image_text_url'),
 				path('image_text/<str:type>/<int:id>', ImageText.ImageTextView.as_view(), name='image_text_page_url'),
-
+				path('service/edit/<int:s_id>/sub/<int:id>', service.new_sub_service_page, name='edit_sub_service_url'),
+				path('service/new/<int:s_id>/sub', service.new_sub_service_page, name='new_sub_service_url'),
+				path('service/delete/<int:s_id>/sub/<int:id>', service.del_sub_service_page, name='del_sub_service_url'),
 				]

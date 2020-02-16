@@ -49,13 +49,16 @@ class Service(models.Model):
 	description = models.CharField(max_length = 10000, default = '')
 	price = models.CharField(max_length = 1000, default = '')
 	text = models.TextField(default='')
+	type = models.TextField(default='')
 	def __str__(self):
 		return self.name
 
 class SubService(models.Model):
+	# type = models.TextField(default='')
 	name = models.CharField(max_length = 500, default = '')
+	# text = models.TextField(default = '')
 	price = models.CharField(max_length = 1000, default = '')
-	service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='sub_survice', default=None, null=True)
+	service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='sub_service', default=None, null=True)
 
 class Technology(models.Model):
 	cropping = ImageRatioField('img', '500x500', hide_image_field=True)

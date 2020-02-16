@@ -1,5 +1,6 @@
 alfa/.DS_Store argentit/.DS_Store media/.DS_Store static/.DS_Store
 .DS_Store
+argentit_db
 db.sqlite3
 media
 static
