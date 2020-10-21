@@ -7,9 +7,13 @@ from alfa.forms import DoctorForm, TextForm, ImageForm, SelectServiceForm, Selec
 from datetime import date
 
 def doctors_page(request):
-	context = {}
-	context['doctors'] = Doctor.objects.all()
-	return render(request, 'doctors/doctors_page.html', context)
+	try:
+		context = {}
+		context['doctors'] = Doctor.objects.all()
+		return render(request, 'doctors/doctors_page.html', context)
+	except Exception as e:
+		print(e)
+		return HttpResponse('ok')
 
 def doctor_page(request, id):
 	context = {}
