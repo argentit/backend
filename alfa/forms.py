@@ -270,13 +270,13 @@ class DMSForm(forms.ModelForm):
 class TextModelForm(forms.ModelForm):
 	class Meta:
 		model = Text
-		fields = ['text']
-		widgets = {
-			'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
-        }
-		labels = {
-			'text': '',
-		}
+		fields = [ 'rich_text']
+		# widgets = {
+		# 	'text': forms.widgets.Textarea(attrs={'class': 'form-control rounded-0 ', 'rows': '8', 'required': ''}),
+        # }
+		# labels = {
+		# 	'text': '',
+		# }
 
 class NewPortalForm(forms.ModelForm):
 	class Meta:

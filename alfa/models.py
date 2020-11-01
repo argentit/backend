@@ -148,10 +148,12 @@ class Partner(models.Model):
 	image = models.ImageField(upload_to='img/partners/', default=None, null=True, blank=True)
 
 class Text(models.Model):
-	text = models.TextField(default='')
+	rich_text = RichTextUploadingField(blank=True, null=True)
+
+	text = models.TextField(default='',blank=True)
 	name = models.CharField(max_length=500, default='')
 	def __str__(self):
-		return self.text
+		return self.rich_text
 
 class ImageText(models.Model):
 	name = models.CharField(max_length=500, default='', blank=True)
