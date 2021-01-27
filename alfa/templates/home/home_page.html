@@ -1,139 +1,181 @@
 {% extends "base.html" %}
 
 {% block title %}
-	Главная
+    Главная
 {% endblock %}
 {% block head %}
-	{% load cropping thumbnail %}
+    {% load cropping thumbnail %}
 {% endblock %}
 
 {% block content %}
-	{% if not request %}
-	{% if not active_element %}
-		<p class="h5">Ни одного изображения ещё не добавлено</p>
-	{% endif %}
-	{% if active_element %}
-		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<a {% if active_element.post or active_element.sale %}href="{% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{active_element.post.id}}{% endif %}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail active_element 'cropping' %}" alt="{{active_element.title}}" style="max-width:100%; max-height:100%;">
-					</a>
-					<div class="carousel-caption d-none d-md-block">
-						{% if active_element.title %}
-							<a href="{% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{active_element.post.id}}{% endif %}" class="text-mgrey no-underline">
-								<h5 class="h2 px-2" style="background-color:white;display:inline">{{active_element.title}}</h5>
-							</a>
-						{% endif %}
-						{% if active_element.text %}
-							<br>
-							<a href="{% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{active_element.post.id}}{% endif %}" class="text-mgrey no-underline">
-								<p class="px-2" style="background-color:white;display:inline;">{{active_element.text}}</p>
-							</a>
-						{% endif %}
-					</div>
-				</div>
-				{% for item in carousel %}
-					<div class="carousel-item">
-						<a {% if item.post or item.sale %}href="{% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{item.post.id}}{% endif %}"{% endif %}><img class="d-block w-100 mh-100" src="{% cropped_thumbnail item 'cropping' %}" alt="{{item.title}}" style="max-width:100%; max-height:100%;"></a>
-						<div class="carousel-caption d-none d-md-block">
-							{% if item.title %}
-								<a href="{% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{item.post.id}}{% endif %}" class=" text-mgrey no-underline" style="background-color: white;">
-									<h5 class="h2 px-2" style="background-color:white;display:inline"> {{item.title}}</h5>
-								</a>
-							{% endif %}
-							{% if item.text %}
-								<br>
-								<a href="{% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{item.post.id}}{% endif %}" class="text-mgrey no-underline">
-									<p class="px-2" style="background-color:white;display:inline">{{item.text}}</p>
-								</a>
-							{% endif %}
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-			{% if carousel %}
-				<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				</a>
-			{% endif %}
-		</div>
-	{% endif %}
-	{% if request.user.is_authenticated %}
-		<div class="row">
-			<div class="col">
-				{% with url_name='new_carousel_element_url' item='изображение' %}
-					{% include 'admin/add_button.html' %}
-				{% endwith %}
-			</div>
-			<div class="col">
-				<a href="{% url 'edit_carousel_url' %}" class="no-underline">
-						<button class="btn btn-primary btn-block my-3 rounded-0">Изменить порядок / удалить</button>
-				</a>
-			</div>
-		</div>
-	{% endif %}
-	{% with url_name='new_home_post_url' item='пост'%}
-		{% include 'admin/add_button.html' %}
-	{% endwith %}
-	<div class="row">
-		<div class="col">
-			<ul class="list-group list-group-flush">
-				{% for post in all_posts %}
-					<li class="list-group-item" id='{{post.id}}'>
-						<div class="row">
-							<div class="col">
-								{% if post.url %}
-									<a href="{{post.url}}" class="text-mgrey"><h3>{{post.title}}</h3></a>
-								{% else %}
-									<h3>{{post.title}}</h3>
-								{% endif %}
-								<date class="badge pl-0">{{post.datetime|date:'d.m.Y'}}</date>
-								<p>{{post.text}}</p>
-							</div>
-							<div class="col-2">
-								{% url 'remove_home_post_url' post.id  as remove_url %}
-								{% include 'admin/remove_edit_buttons.html' %}
-							</div>
-						</div>
-					</li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
-	{% endif %}
+    {% if not request %}
+        {% if not active_element %}
+            <p class="h5">Ни одного изображения ещё не добавлено</p>
+        {% endif %}
+        {% if active_element %}
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a {% if active_element.post or active_element.sale %}href="
+                                {% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{ active_element.post.id }}{% endif %}"{% endif %}><img
+                                class="d-block w-100 mh-100" src="{% cropped_thumbnail active_element 'cropping' %}"
+                                alt="{{ active_element.title }}" style="max-width:100%; max-height:100%;">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block">
+                            {% if active_element.title %}
+                                <a href="
+                                        {% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{ active_element.post.id }}{% endif %}"
+                                   class="text-mgrey no-underline">
+                                    <h5 class="h2 px-2"
+                                        style="background-color:white;display:inline">{{ active_element.title }}</h5>
+                                </a>
+                            {% endif %}
+                            {% if active_element.text %}
+                                <br>
+                                <a href="
+                                        {% if active_element.sale %}{% url 'sale_url' active_element.sale.id %}{% else %}#{{ active_element.post.id }}{% endif %}"
+                                   class="text-mgrey no-underline">
+                                    <p class="px-2"
+                                       style="background-color:white;display:inline;">{{ active_element.text }}</p>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% for item in carousel %}
+                        <div class="carousel-item">
+                            <a {% if item.post or item.sale %}href="
+                                    {% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{ item.post.id }}{% endif %}"{% endif %}><img
+                                    class="d-block w-100 mh-100" src="{% cropped_thumbnail item 'cropping' %}"
+                                    alt="{{ item.title }}" style="max-width:100%; max-height:100%;"></a>
+                            <div class="carousel-caption d-none d-md-block">
+                                {% if item.title %}
+                                    <a href="
+                                            {% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{ item.post.id }}{% endif %}"
+                                       class=" text-mgrey no-underline" style="background-color: white;">
+                                        <h5 class="h2 px-2"
+                                            style="background-color:white;display:inline"> {{ item.title }}</h5>
+                                    </a>
+                                {% endif %}
+                                {% if item.text %}
+                                    <br>
+                                    <a href="
+                                            {% if item.sale %}{% url 'sale_url' item.sale.id %}{% else %}#{{ item.post.id }}{% endif %}"
+                                       class="text-mgrey no-underline">
+                                        <p class="px-2"
+                                           style="background-color:white;display:inline">{{ item.text }}</p>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if carousel %}
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <div class="row">
+                <div class="col">
+                    {% with url_name='new_carousel_element_url' item='изображение' %}
+                        {% include 'admin/add_button.html' %}
+                    {% endwith %}
+                </div>
+                <div class="col">
+                    <a href="{% url 'edit_carousel_url' %}" class="no-underline">
+                        <button class="btn btn-primary btn-block my-3 rounded-0">Изменить порядок / удалить</button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        {% with url_name='new_home_post_url' item='пост' %}
+            {% include 'admin/add_button.html' %}
+        {% endwith %}
+        <div class="row">
+            <div class="col">
+                <ul class="list-group list-group-flush">
+                    {% for post in all_posts %}
+                        <li class="list-group-item" id='{{ post.id }}'>
+                            <div class="row">
+                                <div class="col">
+                                    {% if post.url %}
+                                        <a href="{{ post.url }}" class="text-mgrey"><h3>{{ post.title }}</h3></a>
+                                    {% else %}
+                                        <h3>{{ post.title }}</h3>
+                                    {% endif %}
+                                    <date class="badge pl-0">{{ post.datetime|date:'d.m.Y' }}</date>
+                                    <p>{{ post.text }}</p>
+                                </div>
+                                <div class="col-2">
+                                    {% url 'remove_home_post_url' post.id  as remove_url %}
+                                    {% include 'admin/remove_edit_buttons.html' %}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
 
 
-	{% if request.user.is_authenticated %}
-		<a href="{% url 'image_text_page_url' 'home' 0 %}">
-			<button type="button" name="button" class="btn btn-primary container-fluid rounded-0">Добавить пост</button>
-		</a>
-	{% endif %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'image_text_page_url' 'home' 0 %}">
+            <button type="button" name="button" class="btn btn-primary container-fluid rounded-0">Добавить пост</button>
+        </a>
+    {% endif %}
+    <div class="row">
+        <div class="col">
 
-	<ul class="list-group list-group-flush">
-		{% for item in home_posts %}
-			<li class="list-group-item" id='{{post.id}}'>
-				<h2>
-					{{item.name}}
-				</h2>
-				<div class="row">
-					{% if item.image %}
-						<div class="col-3">
-							<img src="{{item.image.url}}" alt="item.name" class="w-100">
-						</div>
-					{% endif %}
-					<div class="col">
-							{{item.content|safe}}
-					</div>
-				</div>
-				{% url 'image_text_page_url' 'home' item.id as edit_url %}
-				{% url 'remove_image_text_url' item.id as remove_url %}
-				{% include 'admin/remove_edit_buttons.html' %}
-			</li>
-		{% endfor %}
-	</ul>
+
+            <ul class="list-group list-group-flush">
+                {% for item in home_posts %}
+                    <li class="list-group-item" id='{{ item.id }}'>
+                        <h2>
+                            {{ item.name }}
+                        </h2>
+                        <div class="row">
+                            {% if item.image %}
+                                <div class="col-3">
+                                    <img src="{{ item.image.url }}" alt="item.name" class="w-100">
+                                </div>
+                            {% endif %}
+                            <div class="col">
+                                {{ item.content|safe }}
+                            </div>
+                        </div>
+                        {% url 'image_text_page_url' 'home' item.id as edit_url %}
+                        {% url 'remove_image_text_url' item.id as remove_url %}
+                        {% include 'admin/remove_edit_buttons.html' %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <nav aria-label="" class="">
+        <ul class="pagination justify-content-center mt-1 ">
+
+            {% if prev_page != -1 %}
+                <li class="page-item rounded-0"><a class="page-link rounded-0 text-mgrey"
+                                                   href="{% url 'home_url' %}?page={{ prev_page }}">{{ prev_page|add:1 }}</a>
+                </li>
+            {% endif %}
+            <li class="page-item active rounded-0  "><a class="page-link rounded-0  border-dred bg-dred text-lgrey"
+                                                        href="{% url 'home_url' %}?page={{ page }}">{{ page|add:1 }}</a>
+            </li>
+            {% if next_page != -1 %}
+                <li class="page-item rounded-0"><a class="page-link rounded-0 text-mgrey"
+                                                   href="{% url 'home_url' %}?page={{ next_page }}">{{ next_page|add:1 }}</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
 
 
 {% endblock %}
